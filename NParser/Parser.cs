@@ -11,7 +11,7 @@ namespace NParser
 {
 	/// <summary>
 	/// <para>Abstract class with basic logic for parsing.</para>
-	/// <para>Child classes should override <see cref="Parser{T}.ParseHtml(IDocument)"/> for parsing a specific site using NuGet AngleSharp.</para>
+	/// <para>Child classes should override <see cref="Parser{T}.ParseHtmlAsync(IDocument)"/> for parsing a specific site using NuGet AngleSharp.</para>
 	/// </summary>
 	/// <typeparam name="T">Parsing result type.</typeparam>
 	public abstract class Parser<T>
@@ -39,7 +39,7 @@ namespace NParser
 		public Parser(HttpWebRequest request) => Loader = new WebRequestLoader(request);
 
 		/// <summary>
-		/// Parse the site. This method use logic of overridden method <see cref="Parser{T}.ParseHtml(IDocument)"/>.
+		/// Parse the site. This method use logic of overridden method <see cref="Parser{T}.ParseHtmlAsync(IDocument)"/>.
 		/// </summary>
 		/// <param name="url">Website Url.</param>
 		/// <returns>Parsing result as type <see cref="T"/>.</returns>
@@ -50,7 +50,7 @@ namespace NParser
 				.WithDefaultLoader(new LoaderOptions { IsResourceLoadingEnabled = true })
 				.WithCss();
 			var document = await BrowsingContext.New(config).OpenAsync(x => x.Content(html));
-			return ParseHtml(document);
+			return await ParseHtmlAsync(document);
 		}
 
 		/// <summary>
@@ -58,6 +58,6 @@ namespace NParser
 		/// </summary>
 		/// <param name="html">Webpage HTML code.</param>
 		/// <returns>Parsing result as type <see cref="T"/>.</returns>
-		protected abstract T ParseHtml(IDocument html);
+		protected abstract Task<T> ParseHtmlAsync(IDocument html);
 	}
 }
