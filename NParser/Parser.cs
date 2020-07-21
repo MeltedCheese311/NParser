@@ -41,8 +41,8 @@ namespace NParser
 		/// <summary>
 		/// Parse the site. This method use logic of overridden method <see cref="Parser{T}.ParseHtml(IDocument)"/>.
 		/// </summary>
-		/// <param name="url">Url сайта.</param>
-		/// <returns>Результат парсинга.</returns>
+		/// <param name="url">Website Url.</param>
+		/// <returns>Parsing result as type <see cref="T"/>.</returns>
 		public async Task<T> ParseAsync(string url)
 		{
 			var html = await Loader.GetHtmlStringAsync(url);
