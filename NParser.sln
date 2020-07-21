@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NParser", "NParser\NParser.csproj", "{C8382AA3-CA88-4CE4-93B2-069DDC39EF99}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8382AA3-CA88-4CE4-93B2-069DDC39EF99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8382AA3-CA88-4CE4-93B2-069DDC39EF99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8382AA3-CA88-4CE4-93B2-069DDC39EF99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8382AA3-CA88-4CE4-93B2-069DDC39EF99}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0F0C65F1-2F1C-486D-8791-8707AAFFBC18}
+	EndGlobalSection
+EndGlobal
