@@ -2,9 +2,9 @@
 
 namespace NParser.HtmlLoading.Models
 {
-    /// <summary>
-    /// Response from any Url.
-    /// </summary>
+	/// <summary>
+	/// Response from any Url.
+	/// </summary>
 	internal class Response
     {
         /// <summary>

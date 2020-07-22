@@ -3,6 +3,7 @@ using AngleSharp.Dom;
 using AngleSharp.Io;
 using NParser.HtmlLoading;
 using NParser.HtmlLoading.Abstract;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace NParser
 	/// <para>Child classes should override <see cref="Parser{T}.ParseHtmlAsync(IDocument)"/> for parsing a specific site using NuGet AngleSharp.</para>
 	/// </summary>
 	/// <typeparam name="T">Parsing result type.</typeparam>
-	public abstract class Parser<T>
+	public abstract class Parser<T> : IDisposable
 	{
 		/// <summary>
 		/// Object for loading HTML of any Url.
@@ -35,8 +36,8 @@ namespace NParser
 		/// <summary>
 		/// Create an instance of <see cref="Parser{T}"/> with prepared <see cref="HtmlLoader"/>.
 		/// </summary>
-		/// <param name="request">Prepared instance of <see cref="HttpWebRequest"/>.</param>
-		public Parser(HttpWebRequest request) => Loader = new WebRequestLoader(request);
+		/// <param name="configureRequest">Func for set settings of <see cref="HttpWebRequest"/>.</param>
+		public Parser(Func<HttpWebRequest, HttpWebRequest> configureRequest) => Loader = new WebRequestLoader(configureRequest);
 
 		/// <summary>
 		/// Parse the site. This method use logic of overridden method <see cref="Parser{T}.ParseHtmlAsync(IDocument)"/>.
@@ -52,6 +53,8 @@ namespace NParser
 			var document = await BrowsingContext.New(config).OpenAsync(x => x.Content(html));
 			return await ParseHtmlAsync(document);
 		}
+
+		public void Dispose() => Loader.Dispose();
 
 		/// <summary>
 		/// Get the necessary data from HTML using AngleSharp and convert it to type <see cref="T"/>.
