@@ -1,6 +1,6 @@
-﻿using NParser.HtmlLoading.Abstract;
+﻿using NParser.Factory;
+using NParser.HtmlLoading.Abstract;
 using NParser.HtmlLoading.Models;
-using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -15,7 +15,19 @@ namespace NParser.HtmlLoading
 		/// <summary>
 		/// Object for working with Url.
 		/// </summary>
-		private readonly HttpClient _client;
+		private HttpClient _client;
+
+		/// <summary>
+		/// Object for creating <see cref="HttpClient"/> with caching.
+		/// </summary>
+		private readonly CachedHttpClientFactory _cachedFactory = 
+			new CachedHttpClientFactory(
+				new HttpClientFactory(
+					() => new HttpClientHandler
+					{
+						UseCookies = true,
+						UseDefaultCredentials = true,
+					}));
 
 		/// <summary>
 		/// Create an instance of <see cref="HtmlLoader"/> with default settings.
@@ -42,9 +54,8 @@ namespace NParser.HtmlLoading
 				: new Response(statusCode);
 		}
 
-		internal override void ChangeProxy(string host, int port)
-		{
-			throw new NotImplementedException();
-		}
+		internal override void ChangeProxy(string host, int port) => _client = _cachedFactory.CreateClientWithProxy(new WebProxy(host, port));
+
+		public override void Dispose() => _cachedFactory.Dispose();
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using NParser.HtmlLoading.Abstract;
 using NParser.HtmlLoading.Models;
+using System;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
@@ -14,16 +15,24 @@ namespace NParser.HtmlLoading
 		/// <summary>
 		/// Object for working with Url.
 		/// </summary>
-		private readonly HttpWebRequest _request;
+		private HttpWebRequest _request;
 
 		/// <summary>
-		/// Create an instance of <see cref="HtmlLoader"/> with prepated <see cref="HttpWebRequest"/>.     
+		/// Func for set settings of <see cref="HttpWebRequest"/>.
 		/// </summary>
-		/// <param name="request">Prepared instance of <see cref="HttpWebRequest"/>.</param>
-		internal WebRequestLoader(HttpWebRequest request) => _request = request;
+		private readonly Func<HttpWebRequest, HttpWebRequest> _configureRequest;
+
+		/// <summary>
+		/// Create an instance of <see cref="HtmlLoader"/> with prepared properties of <see cref="HttpWebRequest"/>. 
+		/// </summary>
+		/// <param name="configureRequest">Func for set settings of <see cref="HttpWebRequest"/>.</param>
+		internal WebRequestLoader(Func<HttpWebRequest, HttpWebRequest> configureRequest) => _configureRequest = configureRequest;
 
 		internal override async Task<Response> GetResponseAsync(string url)
 		{
+			_request = (HttpWebRequest)WebRequest.Create(url);
+			_request = _configureRequest(_request);
+
 			var response = _request.GetResponse() as HttpWebResponse;
 			var statusCode = response?.StatusCode ?? default;
 
@@ -39,5 +48,9 @@ namespace NParser.HtmlLoading
 		}
 
 		internal override void ChangeProxy(string host, int port) => _request.Proxy = new WebProxy(host, port);
+
+		public override void Dispose()
+		{
+		}
 	}
 }

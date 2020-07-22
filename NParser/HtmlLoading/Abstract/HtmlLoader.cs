@@ -1,4 +1,5 @@
 ﻿using NParser.HtmlLoading.Models;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -7,7 +8,7 @@ namespace NParser.HtmlLoading.Abstract
 	/// <summary>
 	/// Class for loading HTML of any Url.
 	/// </summary>
-	internal abstract class HtmlLoader
+	internal abstract class HtmlLoader : IDisposable
     {
         /// <summary>
         /// Get HTML code of input Url.
@@ -50,5 +51,7 @@ namespace NParser.HtmlLoading.Abstract
         /// <param name="host">The name of the proxy host.</param>
         /// <param name="port">The port number on host to use.</param>
         internal abstract void ChangeProxy(string host, int port);
-    }
+
+        public abstract void Dispose();
+	}
 }

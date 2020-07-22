@@ -1,5 +1,7 @@
 ﻿using NParser.HtmlLoading.Abstract;
+using System;
 using System.Net;
+using System.Net.Http;
 
 namespace NParser
 {
@@ -15,7 +17,14 @@ namespace NParser
 		/// <summary>
 		/// Create an instance of <see cref="DynamicProxyParser{T}"/> with prepared <see cref="HttpWebRequest"/>.
 		/// </summary>
-		public DynamicProxyParser(HttpWebRequest request) : base(request) { }
+		/// <param name="configureRequest">Func for set settings of <see cref="HttpWebRequest"/>.</param>
+		public DynamicProxyParser(Func<HttpWebRequest, HttpWebRequest> configureRequest) : base(configureRequest) { }
+
+		/// <summary>
+		/// Create an instance of <see cref="Parser{T}"/> with prepared <see cref="HttpClient"/>.
+		/// </summary>
+		/// <param name="client">Prepared instance of <see cref="HttpClient"/>.</param>
+		public DynamicProxyParser(HttpClient client) : base(client) { }
 
 		/// <summary>
 		/// Change proxy for next requests.
