@@ -93,7 +93,7 @@ public class TobaccoParser : Parser<IEnumerable<Store>>
 
 	protected override async Task<IEnumerable<Store>> ParseHtmlAsync(IDocument html)
 	{
-		// parsing with using nested parser
+		// parse using nested parser
 		var items = html.QuerySelectorAll("a.name");
 		var result = (await Task.WhenAll(items
 			.Select(async x =>
