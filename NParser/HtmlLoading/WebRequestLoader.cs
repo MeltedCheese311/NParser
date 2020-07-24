@@ -47,7 +47,7 @@ namespace NParser.HtmlLoading
 			}
 		}
 
-		internal override void ChangeProxy(string host, int port) => _request.Proxy = new WebProxy(host, port);
+		internal override void ChangeProxy(WebProxy proxy) => _request.Proxy = proxy;
 
 		public override void Dispose()
 		{

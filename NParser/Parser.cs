@@ -40,6 +40,12 @@ namespace NParser
 		public Parser(Func<HttpWebRequest, HttpWebRequest> configureRequest) => Loader = new WebRequestLoader(configureRequest);
 
 		/// <summary>
+		/// Create an instance of <see cref="Parser{T}"/> with prepared <see cref="WebProxy"/>.
+		/// </summary>
+		/// <param name="proxy">Proxy.</param>
+		internal Parser(WebProxy proxy) : this(new HttpClient(new HttpClientHandler { Proxy = proxy })) { }
+
+		/// <summary>
 		/// Parse the site. This method use logic of overridden method <see cref="Parser{T}.ParseHtmlAsync(IDocument)"/>.
 		/// </summary>
 		/// <param name="url">Website Url.</param>

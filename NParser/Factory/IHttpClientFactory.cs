@@ -6,7 +6,7 @@ namespace NParser.Factory
 	/// <summary>
 	/// Factory for creating <see cref="HttpClient"/>.
 	/// </summary>
-	public interface IHttpClientFactory
+	internal interface IHttpClientFactory
     {
         /// <summary>
         /// Create an instance of <see cref="HttpClient"/>.
