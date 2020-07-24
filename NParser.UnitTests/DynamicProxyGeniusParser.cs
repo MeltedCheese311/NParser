@@ -13,6 +13,8 @@ namespace NParser.UnitTests
 	{
 		public DynamicProxyGeniusParser(WebProxy proxy) : base(proxy) { }
 
+		public DynamicProxyGeniusParser(string host, int port) : base(host, port) { }
+
 		public DynamicProxyGeniusParser(Func<HttpWebRequest, HttpWebRequest> configureRequest) : base(configureRequest) { }
 
 		public DynamicProxyGeniusParser(HttpClient client) : base(client) { }

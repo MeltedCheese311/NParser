@@ -15,10 +15,17 @@ namespace NParser
 		internal override HtmlLoader Loader { get; }
 
 		/// <summary>
-		/// Create an instance of <see cref="DynamicProxyParser{T}"/> with prepared <see cref="HttpWebRequest"/>.
+		/// Create an instance of <see cref="DynamicProxyParser{T}"/> with prepared <see cref="WebProxy"/>.
 		/// </summary>
 		/// <param name="proxy">Prepared proxy.</param>
 		public DynamicProxyParser(WebProxy proxy) : base(proxy) { }
+
+		/// <summary>
+		/// Create an instance of <see cref="DynamicProxyParser{T}"/> with proxy.
+		/// </summary>
+		/// <param name="host">The name of the proxy host.</param>
+		/// <param name="port">The port number of host to use.</param>
+		public DynamicProxyParser(string host, int port) : base(new WebProxy(host, port)) { }
 
 		/// <summary>
 		/// Create an instance of <see cref="DynamicProxyParser{T}"/> with prepared <see cref="HttpWebRequest"/>.
@@ -37,5 +44,12 @@ namespace NParser
 		/// </summary>
 		/// <param name="proxy">Prepared proxy.</param>
 		public void ChangeProxy(WebProxy proxy) => Loader.ChangeProxy(proxy);
+
+		/// <summary>
+		/// Change proxy for next requests.
+		/// </summary>
+		/// <param name="host">The name of the proxy host.</param>
+		/// <param name="port">The port number of host to use.</param>
+		public void ChangeProxy(string host, int port) => ChangeProxy(new WebProxy(host, port));
 	}
 }

@@ -11,6 +11,8 @@ namespace NParser.UnitTests
 	public class ParserTests
 	{
 		private readonly WebProxy _wrongProxy = new WebProxy("1.0.0.64", 80);
+		private readonly string _correctProxyHost = "54.37.131.91";
+		private readonly int _correctProxyPort = 3128;
 		private readonly WebProxy _correctProxy = new WebProxy("54.37.131.91", 3128);
 		private readonly WebProxy _correctProxy1 = new WebProxy("80.187.140.26", 8080);
 		private readonly WebProxy _correctProxy2 = new WebProxy("199.195.251.143", 3128);
@@ -331,6 +333,28 @@ namespace NParser.UnitTests
 
 			var result1 = await parser.ParseAsync(_correctUrl);
 			parser.ChangeProxy(new WebProxy());
+			var result2 = await parser.ParseAsync(_correctUrl);
+
+			Assert.Pass();
+		}
+
+		[Test]
+		public async Task ParseAsync_DynamicProxyConstructor()
+		{
+			using var parser = new DynamicProxyGeniusParser(_correctProxyHost, _correctProxyPort);
+
+			var result = await parser.ParseAsync(_correctUrl);
+
+			Assert.Pass();
+		}
+
+		[Test]
+		public async Task ParseAsync_DynamicProxyChange()
+		{
+			using var parser = new DynamicProxyGeniusParser(_wrongProxy);
+
+			var result1 = await parser.ParseAsync(_correctUrl);
+			parser.ChangeProxy(_correctProxyHost, _correctProxyPort);
 			var result2 = await parser.ParseAsync(_correctUrl);
 
 			Assert.Pass();
