@@ -12,8 +12,6 @@ namespace NParser
 	/// <typeparam name="T">Parsing result type.</typeparam>
 	public abstract class DynamicProxyParser<T> : Parser<T>
 	{
-		internal override HtmlLoader Loader { get; }
-
 		/// <summary>
 		/// Create an instance of <see cref="DynamicProxyParser{T}"/> with prepared <see cref="WebProxy"/>.
 		/// </summary>
@@ -30,8 +28,8 @@ namespace NParser
 		/// <summary>
 		/// Create an instance of <see cref="DynamicProxyParser{T}"/> with prepared <see cref="HttpWebRequest"/>.
 		/// </summary>
-		/// <param name="configureRequest">Func for set settings of <see cref="HttpWebRequest"/>.</param>
-		public DynamicProxyParser(Func<HttpWebRequest, HttpWebRequest> configureRequest) : base(configureRequest) { }
+		/// <param name="configureRequest"><see cref="Action"/> for set settings of <see cref="HttpWebRequest"/>.</param>
+		public DynamicProxyParser(Action<HttpWebRequest> configureRequest) : base(configureRequest) { }
 
 		/// <summary>
 		/// Create an instance of <see cref="Parser{T}"/> with prepared <see cref="HttpClient"/>.

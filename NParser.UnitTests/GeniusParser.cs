@@ -13,7 +13,7 @@ namespace NParser.UnitTests
 	{
 		public GeniusParser() : base() { }
 
-		public GeniusParser(Func<HttpWebRequest, HttpWebRequest> configureRequest) : base(configureRequest) { }
+		public GeniusParser(Action<HttpWebRequest> configureRequest) : base(configureRequest) { }
 
 		public GeniusParser(HttpClient client) : base(client) { }
 

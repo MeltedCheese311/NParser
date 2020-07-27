@@ -23,7 +23,7 @@ namespace NParser.HtmlLoading.Abstract
             {
                 response = await GetResponseAsync(url);
             }
-            catch
+            catch (Exception ex)
             {
                 throw;
             }
@@ -34,7 +34,7 @@ namespace NParser.HtmlLoading.Abstract
             }
             else
             {
-                throw new WebException($"Incorrect response. Status code: {response.StatusCode}");
+                throw new WebException($"Incorrect response. Status code: {(int)response.StatusCode} ({response.StatusCode})");
             }
         }
 
@@ -49,7 +49,7 @@ namespace NParser.HtmlLoading.Abstract
         /// Change proxy for next requests.
         /// </summary>
         /// <param name="proxy">Prepared proxy.</param>
-        internal abstract void ChangeProxy(WebProxy proxy);
+        internal abstract void ChangeProxy(IWebProxy proxy);
 
         public abstract void Dispose();
 	}

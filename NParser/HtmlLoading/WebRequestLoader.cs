@@ -18,20 +18,30 @@ namespace NParser.HtmlLoading
 		private HttpWebRequest _request;
 
 		/// <summary>
-		/// Func for set settings of <see cref="HttpWebRequest"/>.
+		/// <see cref="Action"/> for set settings of <see cref="HttpWebRequest"/>.
 		/// </summary>
-		private readonly Func<HttpWebRequest, HttpWebRequest> _configureRequest;
+		private Action<HttpWebRequest> _configureRequest;
+		
+		/// <summary>
+		/// <see cref="Action"/> for set new proxy for next requests.
+		/// </summary>
+		private Action<HttpWebRequest> _changeProxy;
 
 		/// <summary>
 		/// Create an instance of <see cref="HtmlLoader"/> with prepared properties of <see cref="HttpWebRequest"/>. 
 		/// </summary>
-		/// <param name="configureRequest">Func for set settings of <see cref="HttpWebRequest"/>.</param>
-		internal WebRequestLoader(Func<HttpWebRequest, HttpWebRequest> configureRequest) => _configureRequest = configureRequest;
+		/// <param name="configureRequest"><see cref="Action"/> for set settings of <see cref="HttpWebRequest"/>.</param>
+		internal WebRequestLoader(Action<HttpWebRequest> configureRequest) => _configureRequest = configureRequest;
 
 		internal override async Task<Response> GetResponseAsync(string url)
 		{
 			_request = (HttpWebRequest)WebRequest.Create(url);
-			_request = _configureRequest(_request);
+			_configureRequest(_request);
+
+			if (_request == null)
+			{
+				throw new InvalidOperationException($"{nameof(HttpWebRequest)} was configured incorrectly.");
+			}
 
 			var response = _request.GetResponse() as HttpWebResponse;
 			var statusCode = response?.StatusCode ?? default;
@@ -47,7 +57,12 @@ namespace NParser.HtmlLoading
 			}
 		}
 
-		internal override void ChangeProxy(WebProxy proxy) => _request.Proxy = proxy;
+		internal override void ChangeProxy(IWebProxy proxy)
+		{
+			_configureRequest -= _changeProxy;
+			_changeProxy = (request) => request.Proxy = proxy;
+			_configureRequest += _changeProxy;
+		}
 
 		public override void Dispose()
 		{

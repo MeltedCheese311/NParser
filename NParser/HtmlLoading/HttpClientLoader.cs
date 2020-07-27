@@ -54,7 +54,7 @@ namespace NParser.HtmlLoading
 				: new Response(statusCode);
 		}
 
-		internal override void ChangeProxy(WebProxy proxy) => _client = _cachedFactory.CreateClientWithProxy(proxy);
+		internal override void ChangeProxy(IWebProxy proxy) => _client = _cachedFactory.CreateClientWithProxy(proxy);
 
 		public override void Dispose() => _cachedFactory.Dispose();
 	}
