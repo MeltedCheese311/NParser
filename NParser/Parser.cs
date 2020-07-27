@@ -20,7 +20,7 @@ namespace NParser
 		/// <summary>
 		/// Object for loading HTML of any Url.
 		/// </summary>
-		internal virtual HtmlLoader Loader { get; }
+		internal HtmlLoader Loader { get; }
 
 		/// <summary>
 		/// Create an instance of <see cref="Parser{T}"/> with default settings.
@@ -36,8 +36,14 @@ namespace NParser
 		/// <summary>
 		/// Create an instance of <see cref="Parser{T}"/> with prepared <see cref="HtmlLoader"/>.
 		/// </summary>
-		/// <param name="configureRequest">Func for set settings of <see cref="HttpWebRequest"/>.</param>
-		public Parser(Func<HttpWebRequest, HttpWebRequest> configureRequest) => Loader = new WebRequestLoader(configureRequest);
+		/// <param name="configureRequest"><see cref="Action"/> for set settings of <see cref="HttpWebRequest"/>.</param>
+		public Parser(Action<HttpWebRequest> configureRequest) => Loader = new WebRequestLoader(configureRequest);
+
+		/// <summary>
+		/// Create an instance of <see cref="Parser{T}"/> with prepared <see cref="WebProxy"/>.
+		/// </summary>
+		/// <param name="proxy">Proxy.</param>
+		internal Parser(WebProxy proxy) : this(new HttpClient(new HttpClientHandler { Proxy = proxy })) { }
 
 		/// <summary>
 		/// Parse the site. This method use logic of overridden method <see cref="Parser{T}.ParseHtmlAsync(IDocument)"/>.

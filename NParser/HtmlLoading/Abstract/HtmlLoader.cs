@@ -23,7 +23,7 @@ namespace NParser.HtmlLoading.Abstract
             {
                 response = await GetResponseAsync(url);
             }
-            catch
+            catch (Exception ex)
             {
                 throw;
             }
@@ -34,7 +34,7 @@ namespace NParser.HtmlLoading.Abstract
             }
             else
             {
-                throw new WebException($"Incorrect response. Status code: {response.StatusCode}");
+                throw new WebException($"Incorrect response. Status code: {(int)response.StatusCode} ({response.StatusCode})");
             }
         }
 
@@ -48,9 +48,8 @@ namespace NParser.HtmlLoading.Abstract
         /// <summary>
         /// Change proxy for next requests.
         /// </summary>
-        /// <param name="host">The name of the proxy host.</param>
-        /// <param name="port">The port number on host to use.</param>
-        internal abstract void ChangeProxy(string host, int port);
+        /// <param name="proxy">Prepared proxy.</param>
+        internal abstract void ChangeProxy(IWebProxy proxy);
 
         public abstract void Dispose();
 	}

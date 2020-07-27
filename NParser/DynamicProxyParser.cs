@@ -12,13 +12,24 @@ namespace NParser
 	/// <typeparam name="T">Parsing result type.</typeparam>
 	public abstract class DynamicProxyParser<T> : Parser<T>
 	{
-		internal override HtmlLoader Loader { get; }
+		/// <summary>
+		/// Create an instance of <see cref="DynamicProxyParser{T}"/> with prepared <see cref="WebProxy"/>.
+		/// </summary>
+		/// <param name="proxy">Prepared proxy.</param>
+		public DynamicProxyParser(WebProxy proxy) : base(proxy) { }
+
+		/// <summary>
+		/// Create an instance of <see cref="DynamicProxyParser{T}"/> with proxy.
+		/// </summary>
+		/// <param name="host">The name of the proxy host.</param>
+		/// <param name="port">The port number of host to use.</param>
+		public DynamicProxyParser(string host, int port) : base(new WebProxy(host, port)) { }
 
 		/// <summary>
 		/// Create an instance of <see cref="DynamicProxyParser{T}"/> with prepared <see cref="HttpWebRequest"/>.
 		/// </summary>
-		/// <param name="configureRequest">Func for set settings of <see cref="HttpWebRequest"/>.</param>
-		public DynamicProxyParser(Func<HttpWebRequest, HttpWebRequest> configureRequest) : base(configureRequest) { }
+		/// <param name="configureRequest"><see cref="Action"/> for set settings of <see cref="HttpWebRequest"/>.</param>
+		public DynamicProxyParser(Action<HttpWebRequest> configureRequest) : base(configureRequest) { }
 
 		/// <summary>
 		/// Create an instance of <see cref="Parser{T}"/> with prepared <see cref="HttpClient"/>.
@@ -29,8 +40,14 @@ namespace NParser
 		/// <summary>
 		/// Change proxy for next requests.
 		/// </summary>
+		/// <param name="proxy">Prepared proxy.</param>
+		public void ChangeProxy(WebProxy proxy) => Loader.ChangeProxy(proxy);
+
+		/// <summary>
+		/// Change proxy for next requests.
+		/// </summary>
 		/// <param name="host">The name of the proxy host.</param>
-		/// <param name="port">The port number on host to use.</param>
-		public void ChangeProxy(string host, int port) => Loader.ChangeProxy(host, port);
+		/// <param name="port">The port number of host to use.</param>
+		public void ChangeProxy(string host, int port) => ChangeProxy(new WebProxy(host, port));
 	}
 }
