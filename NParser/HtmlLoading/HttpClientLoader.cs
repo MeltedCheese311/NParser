@@ -38,7 +38,7 @@ namespace NParser.HtmlLoading
 		/// </summary>
 		/// <param name="client">Prepared instance of <see cref="HttpClient"/>.</param>
 		internal HttpClientLoader(HttpClient client)
-		: this(new CachedHttpClientFactory(new HttpClientFactory()))
+			: this(new CachedHttpClientFactory(new HttpClientFactory()))
 		{
 			_client = client;
 		}
