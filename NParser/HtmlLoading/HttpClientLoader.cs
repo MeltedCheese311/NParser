@@ -59,8 +59,8 @@ namespace NParser.HtmlLoading
 			var statusCode = response?.StatusCode ?? default;
 
 			return statusCode == HttpStatusCode.OK
-			? new Response(await response.Content.ReadAsStringAsync())
-			: new Response(statusCode);
+				? new Response(await response.Content.ReadAsStringAsync())
+				: new Response(statusCode);
 		}
 
 		internal override void ChangeProxy(IWebProxy proxy) => _client = _cachedFactory.CreateClientWithProxy(proxy);
