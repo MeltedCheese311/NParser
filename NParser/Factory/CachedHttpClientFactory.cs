@@ -5,10 +5,10 @@ using System.Net.Http;
 
 namespace NParser.Factory
 {
-	/// <summary>
-	/// Factory for creating <see cref="HttpClient"/> with caching.
-	/// </summary>
-	internal class CachedHttpClientFactory : IHttpClientFactory, IDisposable
+    /// <summary>
+    /// Factory for creating <see cref="HttpClient"/> with caching.
+    /// </summary>
+    internal class CachedHttpClientFactory : IHttpClientFactory, IDisposable
     {
         /// <summary>
         /// Factory for creating <see cref="HttpClient"/>.
@@ -55,12 +55,12 @@ namespace NParser.Factory
             }
         }
 
-		public void Dispose()
-		{
-			foreach (var client in _cache.Values)
-			{
+        public void Dispose()
+        {
+            foreach (var client in _cache.Values)
+            {
                 client.Dispose();
-			}
-		}
-	}
+            }
+        }
+    }
 }

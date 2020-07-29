@@ -39,7 +39,7 @@ namespace NParser.UnitTests
 		{
 			using var parser = new GeniusParser();
 
-			Assert.CatchAsync<InvalidOperationException>(async () => 
+			Assert.CatchAsync<InvalidOperationException>(async () =>
 			{
 				await parser.ParseAsync("");
 			});
@@ -98,7 +98,7 @@ namespace NParser.UnitTests
 			var client = new HttpClient(handler);
 			using var parser = new GeniusParser(client);
 
-			Assert.CatchAsync<WebException>(async() => 
+			Assert.CatchAsync<WebException>(async () =>
 			{
 				await parser.ParseAsync(_correctUrl);
 			});

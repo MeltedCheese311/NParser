@@ -4,10 +4,10 @@ using System.Net.Http;
 
 namespace NParser.Factory
 {
-	/// <summary>
-	/// Factory for creating <see cref="HttpClient"/>.
-	/// </summary>
-	internal class HttpClientFactory : IHttpClientFactory
+    /// <summary>
+    /// Factory for creating <see cref="HttpClient"/>.
+    /// </summary>
+    internal class HttpClientFactory : IHttpClientFactory
     {
         /// <summary>
         /// Func for creating instance of <see cref="HttpClientHandler"/>.
@@ -35,15 +35,15 @@ namespace NParser.Factory
         /// </summary>
         /// <param name="makeHandler">Func for creating instance of <see cref="HttpClientHandler"/>.</param>
         public HttpClientFactory(Func<HttpClientHandler> makeHandler)
-		{
+        {
             _makeHandler = makeHandler;
-		}
+        }
 
         /// <summary>
         /// Create an instance of <see cref="HttpClientFactory"/> with default settings.
         /// </summary>
         public HttpClientFactory()
-		{
+        {
             _makeHandler = () => new HttpClientHandler
             {
                 UseCookies = true,
@@ -54,7 +54,7 @@ namespace NParser.Factory
         }
 
         public HttpClient CreateClient()
-		{
+        {
             var handler = _makeHandler?.Invoke();
             var client = handler != null
                 ? new HttpClient(handler, true)
@@ -67,9 +67,9 @@ namespace NParser.Factory
         {
             var handler = _makeHandler();
             if (handler == null)
-			{
+            {
                 throw new InvalidOperationException($"Func \"makeHandler\" returns null");
-			}
+            }
             handler.Proxy = webProxy;
             var client = new HttpClient(handler, true);
             _configureClient?.Invoke(client);

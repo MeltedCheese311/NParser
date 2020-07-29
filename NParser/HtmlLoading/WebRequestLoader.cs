@@ -21,7 +21,7 @@ namespace NParser.HtmlLoading
 		/// <see cref="Action"/> for set settings of <see cref="HttpWebRequest"/>.
 		/// </summary>
 		private Action<HttpWebRequest> _configureRequest;
-		
+
 		/// <summary>
 		/// <see cref="Action"/> for set new proxy for next requests.
 		/// </summary>

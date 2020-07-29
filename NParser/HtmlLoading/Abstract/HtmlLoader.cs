@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace NParser.HtmlLoading.Abstract
 {
-	/// <summary>
-	/// Class for loading HTML of any Url.
-	/// </summary>
-	internal abstract class HtmlLoader : IDisposable
+    /// <summary>
+    /// Class for loading HTML of any Url.
+    /// </summary>
+    internal abstract class HtmlLoader : IDisposable
     {
         /// <summary>
         /// Get HTML code of input Url.
@@ -52,5 +52,5 @@ namespace NParser.HtmlLoading.Abstract
         internal abstract void ChangeProxy(IWebProxy proxy);
 
         public abstract void Dispose();
-	}
+    }
 }
