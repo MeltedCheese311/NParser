@@ -27,7 +27,7 @@ namespace NParser.HtmlLoading
 		/// Create an instance of <see cref="HttpClientLoader"/> with default settings.
 		/// </summary>
 		internal HttpClientLoader()
-			: this (new CachedHttpClientFactory(new HttpClientFactory()))
+			: this(new CachedHttpClientFactory(new HttpClientFactory()))
 		{
 			_client = new HttpClient();
 			_client.DefaultRequestHeaders.Add("User-Agent", "C# App");
@@ -38,7 +38,7 @@ namespace NParser.HtmlLoading
 		/// </summary>
 		/// <param name="client">Prepared instance of <see cref="HttpClient"/>.</param>
 		internal HttpClientLoader(HttpClient client)
-			: this (new CachedHttpClientFactory(new HttpClientFactory()))
+		: this(new CachedHttpClientFactory(new HttpClientFactory()))
 		{
 			_client = client;
 		}
@@ -59,8 +59,8 @@ namespace NParser.HtmlLoading
 			var statusCode = response?.StatusCode ?? default;
 
 			return statusCode == HttpStatusCode.OK
-				? new Response(await response.Content.ReadAsStringAsync())
-				: new Response(statusCode);
+			? new Response(await response.Content.ReadAsStringAsync())
+			: new Response(statusCode);
 		}
 
 		internal override void ChangeProxy(IWebProxy proxy) => _client = _cachedFactory.CreateClientWithProxy(proxy);

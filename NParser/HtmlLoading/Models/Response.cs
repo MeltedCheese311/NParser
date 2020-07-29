@@ -2,10 +2,10 @@
 
 namespace NParser.HtmlLoading.Models
 {
-	/// <summary>
-	/// Response from any Url.
-	/// </summary>
-	internal class Response
+    /// <summary>
+    /// Response from any Url.
+    /// </summary>
+    internal class Response
     {
         /// <summary>
         /// Create an instance of <see cref="Response"/>.
@@ -24,9 +24,9 @@ namespace NParser.HtmlLoading.Models
         /// <param name="statusCode">The status code of response.</param>
         internal Response(HttpStatusCode statusCode)
             : this(string.Empty, statusCode)
-		{
+        {
 
-		}
+        }
 
         /// <summary>
         /// Create an instance of <see cref="Response"/> with 200 status code.
@@ -34,9 +34,9 @@ namespace NParser.HtmlLoading.Models
         /// <param name="html">The HTML code of webpage.</param>
         internal Response(string html)
             : this(html, HttpStatusCode.OK)
-		{
+        {
 
-		}
+        }
 
         /// <summary>
         /// HTML code of webpage.
