@@ -28,10 +28,13 @@ namespace NParser.HtmlLoading
 		private Action<HttpWebRequest> _changeProxy;
 
 		/// <summary>
-		/// Create an instance of <see cref="HtmlLoader"/> with prepared properties of <see cref="HttpWebRequest"/>. 
+		/// Create an instance of <see cref="WebRequestLoader"/> with prepared properties of <see cref="HttpWebRequest"/>. 
 		/// </summary>
 		/// <param name="configureRequest"><see cref="Action"/> for set settings of <see cref="HttpWebRequest"/>.</param>
-		internal WebRequestLoader(Action<HttpWebRequest> configureRequest) => _configureRequest = configureRequest;
+		internal WebRequestLoader(Action<HttpWebRequest> configureRequest)
+		{
+			_configureRequest = configureRequest;
+		}
 
 		internal override async Task<Response> GetResponseAsync(string url)
 		{

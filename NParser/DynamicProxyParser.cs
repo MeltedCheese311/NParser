@@ -1,4 +1,5 @@
-﻿using NParser.HtmlLoading.Abstract;
+﻿using NParser.Factory;
+using NParser.HtmlLoading.Abstract;
 using System;
 using System.Net;
 using System.Net.Http;
@@ -13,35 +14,62 @@ namespace NParser
 	public abstract class DynamicProxyParser<T> : Parser<T>
 	{
 		/// <summary>
-		/// Create an instance of <see cref="DynamicProxyParser{T}"/> with prepared <see cref="WebProxy"/>.
+		/// Create an instance of <see cref="DynamicProxyParser{T}"/> with prepared <see cref="IWebProxy"/>.
 		/// </summary>
 		/// <param name="proxy">Prepared proxy.</param>
-		public DynamicProxyParser(WebProxy proxy) : base(proxy) { }
+		public DynamicProxyParser(IWebProxy proxy)
+			: base(proxy)
+		{
+
+		}
 
 		/// <summary>
 		/// Create an instance of <see cref="DynamicProxyParser{T}"/> with proxy.
 		/// </summary>
 		/// <param name="host">The name of the proxy host.</param>
 		/// <param name="port">The port number of host to use.</param>
-		public DynamicProxyParser(string host, int port) : base(new WebProxy(host, port)) { }
+		public DynamicProxyParser(string host, int port)
+			: base(new WebProxy(host, port))
+		{
+
+		}
 
 		/// <summary>
 		/// Create an instance of <see cref="DynamicProxyParser{T}"/> with prepared <see cref="HttpWebRequest"/>.
 		/// </summary>
-		/// <param name="configureRequest"><see cref="Action"/> for set settings of <see cref="HttpWebRequest"/>.</param>
-		public DynamicProxyParser(Action<HttpWebRequest> configureRequest) : base(configureRequest) { }
+		/// <param name="configureRequest"><see cref="Action"/> for setting properties of <see cref="HttpWebRequest"/>.</param>
+		public DynamicProxyParser(Action<HttpWebRequest> configureRequest)
+			: base(configureRequest)
+		{
+
+		}
 
 		/// <summary>
-		/// Create an instance of <see cref="Parser{T}"/> with prepared <see cref="HttpClient"/>.
+		/// Create an instance of <see cref="DynamicProxyParser{T}"/> with prepared <see cref="HttpClient"/>.
 		/// </summary>
-		/// <param name="client">Prepared instance of <see cref="HttpClient"/>.</param>
-		public DynamicProxyParser(HttpClient client) : base(client) { }
+		/// <param name="makeHandler"><see cref="Func{TResult}"/> for creating an instance of <see cref="HttpClientHandler"/>.</param>
+		/// <param name="configureClient"><see cref="Action"/> for setting properties of <see cref="HttpClient"/>.</param>
+		public DynamicProxyParser(Func<HttpClientHandler> makeHandler, Action<HttpClient> configureClient)
+			: base(new CachedHttpClientFactory(new HttpClientFactory(makeHandler, configureClient)))
+		{
+
+		}
+
+		/// <summary>
+		/// Create an instance of <see cref="DynamicProxyParser{T}"/> with prepared <see cref="HttpClient"/>.
+		/// </summary>
+		/// <param name="makeHandler"><see cref="Func{TResult}"/> for creating an instance of <see cref="HttpClientHandler"/>.</param>
+		public DynamicProxyParser(Func<HttpClientHandler> makeHandler)
+			: base(new CachedHttpClientFactory(new HttpClientFactory(makeHandler)))
+		{
+
+		}
 
 		/// <summary>
 		/// Change proxy for next requests.
 		/// </summary>
 		/// <param name="proxy">Prepared proxy.</param>
-		public void ChangeProxy(WebProxy proxy) => Loader.ChangeProxy(proxy);
+		public void ChangeProxy(IWebProxy proxy) => Loader.ChangeProxy(proxy);
 
 		/// <summary>
 		/// Change proxy for next requests.

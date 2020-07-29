@@ -1,6 +1,7 @@
 ﻿using AngleSharp;
 using AngleSharp.Dom;
 using AngleSharp.Io;
+using NParser.Factory;
 using NParser.HtmlLoading;
 using NParser.HtmlLoading.Abstract;
 using System;
@@ -25,25 +26,47 @@ namespace NParser
 		/// <summary>
 		/// Create an instance of <see cref="Parser{T}"/> with default settings.
 		/// </summary>
-		public Parser() => Loader = new HttpClientLoader();
+		public Parser()
+		{
+			Loader = new HttpClientLoader();
+		}
 
 		/// <summary>
 		/// Create an instance of <see cref="Parser{T}"/> with prepared <see cref="HttpClient"/>.
 		/// </summary>
 		/// <param name="client">Prepared instance of <see cref="HttpClient"/>.</param>
-		public Parser(HttpClient client) => Loader = new HttpClientLoader(client);
+		public Parser(HttpClient client)
+		{
+			Loader = new HttpClientLoader(client);
+		}
 
 		/// <summary>
-		/// Create an instance of <see cref="Parser{T}"/> with prepared <see cref="HtmlLoader"/>.
+		/// Create an instance of <see cref="Parser{T}"/> with prepared <see cref="HttpWebRequest"/>.
 		/// </summary>
-		/// <param name="configureRequest"><see cref="Action"/> for set settings of <see cref="HttpWebRequest"/>.</param>
-		public Parser(Action<HttpWebRequest> configureRequest) => Loader = new WebRequestLoader(configureRequest);
+		/// <param name="configureRequest"><see cref="Action"/> for setting properties of <see cref="HttpWebRequest"/>.</param>
+		public Parser(Action<HttpWebRequest> configureRequest)
+		{
+			Loader = new WebRequestLoader(configureRequest);
+		}
 
 		/// <summary>
-		/// Create an instance of <see cref="Parser{T}"/> with prepared <see cref="WebProxy"/>.
+		/// Create an instance of <see cref="Parser{T}"/> with prepared <see cref="IWebProxy"/>.
 		/// </summary>
 		/// <param name="proxy">Proxy.</param>
-		internal Parser(WebProxy proxy) : this(new HttpClient(new HttpClientHandler { Proxy = proxy })) { }
+		internal Parser(IWebProxy proxy)
+			: this(new HttpClient(new HttpClientHandler { Proxy = proxy }))
+		{
+
+		}
+
+		/// <summary>
+		/// Create an instance of <see cref="Parser{T}"/> with prepared <see cref="CachedHttpClientFactory"/>.
+		/// </summary>
+		/// <param name="factory">Factory for creating <see cref="HttpClient"/>.</param>
+		internal Parser(CachedHttpClientFactory factory)
+		{
+			Loader = new HttpClientLoader(factory);
+		}
 
 		/// <summary>
 		/// Parse the site. This method use logic of overridden method <see cref="Parser{T}.ParseHtmlAsync(IDocument)"/>.

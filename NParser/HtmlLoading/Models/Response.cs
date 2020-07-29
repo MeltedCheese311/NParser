@@ -25,6 +25,7 @@ namespace NParser.HtmlLoading.Models
         internal Response(HttpStatusCode statusCode)
             : this(string.Empty, statusCode)
 		{
+
 		}
 
         /// <summary>
@@ -34,6 +35,7 @@ namespace NParser.HtmlLoading.Models
         internal Response(string html)
             : this(html, HttpStatusCode.OK)
 		{
+
 		}
 
         /// <summary>
