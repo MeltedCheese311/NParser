@@ -16,7 +16,7 @@ namespace NParser.Factory
         private readonly IHttpClientFactory _httpClientFactory;
 
         /// <summary>
-        /// Cached instances of <see cref="HttpClient"/>.
+        /// Cached instances of <see cref="HttpClient"/> by <see cref="HttpClientHandler.Proxy"/>.
         /// </summary>
         private readonly Dictionary<int, HttpClient> _cache = new Dictionary<int, HttpClient>();
 
@@ -25,6 +25,13 @@ namespace NParser.Factory
         /// </summary>
         /// <param name="httpClientFactory">Factory for creating <see cref="HttpClient"/>.</param>
         public CachedHttpClientFactory(IHttpClientFactory httpClientFactory) => _httpClientFactory = httpClientFactory;
+
+        /// <summary>
+        /// Create instance of <see cref="HttpClient"/>.
+        /// <para>If the same instance was created earlier, it will be taken from the cache.</para>
+        /// </summary>
+        /// <returns>Instance of <see cref="HttpClient"/>.</returns>
+        public HttpClient CreateClient() => CreateClientWithProxy(new WebProxy());
 
         /// <summary>
         /// Create instance of <see cref="HttpClient"/>.

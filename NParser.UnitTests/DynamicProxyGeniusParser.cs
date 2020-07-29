@@ -11,13 +11,15 @@ namespace NParser.UnitTests
 {
 	internal class DynamicProxyGeniusParser : DynamicProxyParser<string>
 	{
-		public DynamicProxyGeniusParser(WebProxy proxy) : base(proxy) { }
+		public DynamicProxyGeniusParser(IWebProxy proxy) : base(proxy) { }
 
 		public DynamicProxyGeniusParser(string host, int port) : base(host, port) { }
 
 		public DynamicProxyGeniusParser(Action<HttpWebRequest> configureRequest) : base(configureRequest) { }
 
-		public DynamicProxyGeniusParser(HttpClient client) : base(client) { }
+		public DynamicProxyGeniusParser(Func<HttpClientHandler> makeHandler, Action<HttpClient> configureClient) : base(makeHandler, configureClient) { }
+
+		public DynamicProxyGeniusParser(Func<HttpClientHandler> makeHandler) : base(makeHandler) { }
 
 		protected override Task<string> ParseHtmlAsync(IDocument html)
 		{

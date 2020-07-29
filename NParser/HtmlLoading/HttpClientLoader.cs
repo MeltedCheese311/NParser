@@ -1,6 +1,7 @@
 ﻿using NParser.Factory;
 using NParser.HtmlLoading.Abstract;
 using NParser.HtmlLoading.Models;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -20,29 +21,37 @@ namespace NParser.HtmlLoading
 		/// <summary>
 		/// Object for creating <see cref="HttpClient"/> with caching.
 		/// </summary>
-		private readonly CachedHttpClientFactory _cachedFactory = 
-			new CachedHttpClientFactory(
-				new HttpClientFactory(
-					() => new HttpClientHandler
-					{
-						UseCookies = true,
-						UseDefaultCredentials = true,
-					}));
+		private readonly CachedHttpClientFactory _cachedFactory;
 
 		/// <summary>
-		/// Create an instance of <see cref="HtmlLoader"/> with default settings.
+		/// Create an instance of <see cref="HttpClientLoader"/> with default settings.
 		/// </summary>
 		internal HttpClientLoader()
+			: this (new CachedHttpClientFactory(new HttpClientFactory()))
 		{
 			_client = new HttpClient();
 			_client.DefaultRequestHeaders.Add("User-Agent", "C# App");
 		}
 
 		/// <summary>
-		/// Create an instance of <see cref="HtmlLoader"/> with prepated <see cref="HttpClient"/>.     
+		/// Create an instance of <see cref="HttpClientLoader"/> with prepared <see cref="HttpClient"/>.     
 		/// </summary>
 		/// <param name="client">Prepared instance of <see cref="HttpClient"/>.</param>
-		internal HttpClientLoader(HttpClient client) => _client = client;
+		internal HttpClientLoader(HttpClient client)
+			: this (new CachedHttpClientFactory(new HttpClientFactory()))
+		{
+			_client = client;
+		}
+
+		/// <summary>
+		/// Create an instance of <see cref="HttpClientLoader"/> with prepared <see cref="CachedHttpClientFactory"/>.
+		/// </summary>
+		/// <param name="factory">Prepared instance of <see cref="CachedHttpClientFactory"/>.</param>
+		internal HttpClientLoader(CachedHttpClientFactory factory)
+		{
+			_cachedFactory = factory;
+			_client = _cachedFactory.CreateClient();
+		}
 
 		internal override async Task<Response> GetResponseAsync(string url)
 		{

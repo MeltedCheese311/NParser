@@ -8,12 +8,12 @@ namespace NParser.UnitTests
 {
 	public class ParserTests
 	{
-		private readonly WebProxy _wrongProxy = new WebProxy("1.0.0.64", 80);
+		private readonly IWebProxy _wrongProxy = new WebProxy("1.0.0.64", 80);
 		private readonly string _correctProxyHost = "54.37.131.91";
 		private readonly int _correctProxyPort = 3128;
-		private readonly WebProxy _correctProxy = new WebProxy("54.37.131.91", 3128);
-		private readonly WebProxy _correctProxy1 = new WebProxy("80.187.140.26", 8080);
-		private readonly WebProxy _correctProxy2 = new WebProxy("199.195.251.143", 3128);
+		private readonly IWebProxy _correctProxy = new WebProxy("54.37.131.91", 3128);
+		private readonly IWebProxy _correctProxy1 = new WebProxy("80.187.140.26", 8080);
+		private readonly IWebProxy _correctProxy2 = new WebProxy("199.195.251.143", 3128);
 		private readonly string _correctUrl = "https://genius.com/Last-dinosaurs-apollo-lyrics";
 		private readonly string _urlWithoutHttps = "genius.com/Last-dinosaurs-apollo-lyrics";
 		private readonly string _lyrics = "[Verse 1]\nI don't want to know\nYou're driving me crazy\nSay it again my memory's hazy\nI'm falling down the rabbit hole again, yeah\nAll things in time will fade away\nBut I by design will never stray from knowing this life is not the one for me\n\n[Chorus]\nOh I'm ready to be somebody else\nI'll forget how to feel the things I've felt\n\n[Verse 2]\nIdeas in the air\nThe miracle methods\nI'll never get\nI'm easily tempted\nI'll follow you if you're offering the truth, yeah\nMy mind is made up\nI'm willing to come down and wake up\nThe longest I would know of this life\nIt's not the one for me\n\n[Chorus]\nOh I'm ready to be somebody else\nI'll forget how to feel the things I've felt\n\n[Bridge]\nOne more time\nI need to see you one more time\nI'm leaving 'cause I need to know if there's more than this, yeah\n\n[Chorus]\nOh I'm ready to be somebody else\nI'll forget how to feel the things I've felt";
@@ -216,12 +216,11 @@ namespace NParser.UnitTests
 		[Test]
 		public async Task ParseAsync_DynamicHttpClientEmptyWebProxy()
 		{
-			var handler = new HttpClientHandler
+			Func<HttpClientHandler> makeHandler = () => new HttpClientHandler
 			{
 				Proxy = new WebProxy()
 			};
-			var client = new HttpClient(handler);
-			using var parser = new DynamicProxyGeniusParser(client);
+			using var parser = new DynamicProxyGeniusParser(makeHandler);
 
 			var result = await parser.ParseAsync(_correctUrl);
 
@@ -263,15 +262,12 @@ namespace NParser.UnitTests
 		[Test]
 		public void ParseAsync_DynamicProxyHttpClient()
 		{
-			var handler = new HttpClientHandler
+			Func<HttpClientHandler> makeHandler = () => new HttpClientHandler
 			{
 				Proxy = _correctProxy1
 			};
-			var client = new HttpClient(handler)
-			{
-				Timeout = TimeSpan.FromSeconds(2)
-			};
-			using var parser = new DynamicProxyGeniusParser(client);
+			Action<HttpClient> configureClient = (client) => client.Timeout = TimeSpan.FromMilliseconds(1);
+			using var parser = new DynamicProxyGeniusParser(makeHandler, configureClient);
 
 			Assert.CatchAsync<TaskCanceledException>(async () =>
 			{
@@ -330,15 +326,12 @@ namespace NParser.UnitTests
 		[Test]
 		public void ParseAsync_HttpClientChangeEmptyWebProxy()
 		{
-			var handler = new HttpClientHandler
+			Func<HttpClientHandler> makeHandler = () => new HttpClientHandler
 			{
 				Proxy = _correctProxy
 			};
-			var client = new HttpClient(handler)
-			{
-				Timeout = TimeSpan.FromSeconds(2)
-			};
-			using var parser = new DynamicProxyGeniusParser(client);
+			Action<HttpClient> configureClient = (client) => client.Timeout = TimeSpan.FromMilliseconds(1);
+			using var parser = new DynamicProxyGeniusParser(makeHandler, configureClient);
 
 			Assert.CatchAsync<TaskCanceledException>(async () =>
 			{
