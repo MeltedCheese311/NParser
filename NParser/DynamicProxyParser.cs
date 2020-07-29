@@ -18,7 +18,7 @@ namespace NParser
 		/// </summary>
 		/// <param name="proxy">Prepared proxy.</param>
 		public DynamicProxyParser(IWebProxy proxy)
-		: base(proxy)
+			: base(proxy)
 		{
 
 		}
@@ -29,7 +29,7 @@ namespace NParser
 		/// <param name="host">The name of the proxy host.</param>
 		/// <param name="port">The port number of host to use.</param>
 		public DynamicProxyParser(string host, int port)
-		: base(new WebProxy(host, port))
+			: base(new WebProxy(host, port))
 		{
 
 		}
@@ -39,7 +39,7 @@ namespace NParser
 		/// </summary>
 		/// <param name="configureRequest"><see cref="Action"/> for setting properties of <see cref="HttpWebRequest"/>.</param>
 		public DynamicProxyParser(Action<HttpWebRequest> configureRequest)
-		: base(configureRequest)
+			: base(configureRequest)
 		{
 
 		}
@@ -50,7 +50,7 @@ namespace NParser
 		/// <param name="makeHandler"><see cref="Func{TResult}"/> for creating an instance of <see cref="HttpClientHandler"/>.</param>
 		/// <param name="configureClient"><see cref="Action"/> for setting properties of <see cref="HttpClient"/>.</param>
 		public DynamicProxyParser(Func<HttpClientHandler> makeHandler, Action<HttpClient> configureClient)
-		: base(new CachedHttpClientFactory(new HttpClientFactory(makeHandler, configureClient)))
+			: base(new CachedHttpClientFactory(new HttpClientFactory(makeHandler, configureClient)))
 		{
 
 		}
@@ -60,7 +60,7 @@ namespace NParser
 		/// </summary>
 		/// <param name="makeHandler"><see cref="Func{TResult}"/> for creating an instance of <see cref="HttpClientHandler"/>.</param>
 		public DynamicProxyParser(Func<HttpClientHandler> makeHandler)
-		: base(new CachedHttpClientFactory(new HttpClientFactory(makeHandler)))
+			: base(new CachedHttpClientFactory(new HttpClientFactory(makeHandler)))
 		{
 
 		}

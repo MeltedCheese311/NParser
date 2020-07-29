@@ -54,7 +54,7 @@ namespace NParser
 		/// </summary>
 		/// <param name="proxy">Proxy.</param>
 		internal Parser(IWebProxy proxy)
-		: this(new HttpClient(new HttpClientHandler { Proxy = proxy }))
+			: this(new HttpClient(new HttpClientHandler { Proxy = proxy }))
 		{
 
 		}
@@ -77,8 +77,8 @@ namespace NParser
 		{
 			var html = await Loader.GetHtmlStringAsync(url);
 			var config = Configuration.Default
-			.WithDefaultLoader(new LoaderOptions { IsResourceLoadingEnabled = true })
-			.WithCss();
+				.WithDefaultLoader(new LoaderOptions { IsResourceLoadingEnabled = true })
+				.WithCss();
 			var document = await BrowsingContext.New(config).OpenAsync(x => x.Content(html));
 			return await ParseHtmlAsync(document);
 		}
