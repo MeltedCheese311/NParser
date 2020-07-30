@@ -1,13 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Description>Package for parsing web pages using CSS selectors (AngleSharp).
+Description: https://github.com/MeltedCheese311/NParser</Description>
+    <RepositoryUrl>https://github.com/MeltedCheese311/NParser</RepositoryUrl>
+    <PackageTags>Parsing, Parser, Parse, NParser, AngleSharp, CSS, selectors</PackageTags>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Company />
+    <Authors>Gleb Skobelkin</Authors>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="0.14.0" />
     <PackageReference Include="AngleSharp.Css" Version="0.14.2" />
-    <PackageReference Include="HttpToSocks5Proxy" Version="1.4.0" />
   </ItemGroup>
 
 </Project>
