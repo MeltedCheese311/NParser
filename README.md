@@ -7,7 +7,7 @@ public class GeniusParser : Parser<string>
 {
 	protected override Task<string> ParseHtmlAsync(IDocument html)
 	{
-		// find a new node using selectors and read the text content
+		// find a new node using CSS selectors and read the text content
 		var result = html.QuerySelectorAll("div.lyrics").FirstOrDefault()?.TextContent ?? "";
 		return Task.FromResult(result);
 	}
