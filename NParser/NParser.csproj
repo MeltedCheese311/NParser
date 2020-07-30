@@ -9,7 +9,15 @@ Description: https://github.com/MeltedCheese311/NParser</Description>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Company />
     <Authors>Gleb Skobelkin</Authors>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\Projects\NuGet\NParser\NParser\NParser.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>D:\Projects\NuGet\NParser\NParser\NParser.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
