@@ -1,7 +1,7 @@
 ## Description
-**NParser** is a package bla-bla-bla-bla.
+**NParser** is a NuGet package for parsing web pages using CSS selectors (AngleSharp).
 
-Пример создания парсера:
+An example of creating a parser:
 ```c#
 public class GeniusParser : Parser<string>
 {
@@ -14,31 +14,28 @@ public class GeniusParser : Parser<string>
 }
 ```
 
-Пример использования парсера:
+An example of using a parser:
 ```c#
 // create an instance of concrete parser
-var parser = new GeniusParser();
+using var parser = new GeniusParser();
 // parse webpage
 var result = await parser.ParseAsync("https://genius.com/Last-dinosaurs-apollo-lyrics");
 ```
 
-Поддерживаются HttpClient и HttpWebRequest для задания параметров запросов вручную:
-HttpWebRequest:
+HttpClient and HttpWebRequest are supported for setting request parameters.
+An example using HttpWebRequest:
 ```c#
 // configure HttpWebRequest and create an instance of parser
-var parser = new GeniusParser((request) =>
+using var parser = new GeniusParser((request) =>
 {
-	request.CookieContainer = _cookies ?? new CookieContainer();
 	request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36";
-	request.ServerCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
 	request.Proxy = new WebProxy(host, port);
 	request.Timeout = 10000;
-	return request;
 });
 var result = await parser.ParseAsync(url);
 ```
 
-HttpClient:
+An example using HttpClient:
 ```c#
 // create an instance of HttpClient with arbitrary settings
 var handler = new HttpClientHandler
@@ -48,16 +45,16 @@ var handler = new HttpClientHandler
 var client = new HttpClient(handler);
 
 // call constructor with configured HttpClient
-var parser = new GeniusParser(client);
+using var parser = new GeniusParser(client);
 var result = await parser.ParseAsync(url);
 ```
 
-Код парсера для данных примеров:
+For the examples above, the parser code looks like this:
 ```c#
 public class GeniusParser : Parser<string>
 {
-	// add the necessary constructors and pass the parameters to the base constructor
-	public GeniusParser(Func<HttpWebRequest, HttpWebRequest> configureRequest) : base(configureRequest) { }
+	// add the necessary constructors and just pass the parameters to the base constructor
+	public GeniusParser(Action<HttpWebRequest> configureRequest) : base(configureRequest) { }
 
 	public GeniusParser(HttpClient client) : base(client) { }
 
@@ -69,12 +66,11 @@ public class GeniusParser : Parser<string>
 }
 ```
 
-Для случаев, когда необходимо динамически изменять прокси, существует класс `DynamicProxyParser`, позволяющий изменять прокси в любое время. Также позволяет задавать параметры HttpClient/HttpWebRequest вручную:
+For cases when it is necessary to dynamically change the proxy, there is a `DynamicProxyParser` class that allows you to change the proxy at any time. This class also allows you to set parameters of `HttpWebRequest` and `HttpClient`:
 ```c#
-var parser = new EmailParser((request) =>
+using var parser = new EmailParser((request) =>
 {
 	request.Proxy = new WebProxy(host, port);
-	return request;
 });
 var result1 = await parser.ParseAsync(url);
 
@@ -82,7 +78,7 @@ parser.ChangeProxy("167.172.247.130", 8080);
 var result2 = await parser.ParseAsync(url);
 ```
 
-Пример, когда внутри парсера нужно использовать другие парсеры (парсинг сайтов с несколькими страницами):
+An example when you need to use other parsers inside the parser:
 ```c#
 public class TobaccoParser : Parser<IEnumerable<Store>>
 {
