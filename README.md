@@ -3,11 +3,11 @@
 
 An example of creating a parser:
 ```c#
-public class GeniusParser : Parser<string>
+public class ExampleParser : Parser<string>
 {
 	protected override Task<string> ParseHtmlAsync(IDocument html)
 	{
-		// find a new node using CSS selectors and read the text content
+		// find node using CSS selectors and read the text content
 		var result = html.QuerySelectorAll("div.lyrics").FirstOrDefault()?.TextContent ?? "";
 		return Task.FromResult(result);
 	}
@@ -17,7 +17,7 @@ public class GeniusParser : Parser<string>
 An example of using a parser:
 ```c#
 // create an instance of concrete parser
-using var parser = new GeniusParser();
+using var parser = new ExampleParser();
 // parse webpage
 var result = await parser.ParseAsync("https://genius.com/Last-dinosaurs-apollo-lyrics");
 ```
@@ -26,7 +26,7 @@ HttpClient and HttpWebRequest are supported for setting request parameters.
 An example using HttpWebRequest:
 ```c#
 // configure HttpWebRequest and create an instance of parser
-using var parser = new GeniusParser((request) =>
+using var parser = new ExampleParser((request) =>
 {
 	request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36";
 	request.Proxy = new WebProxy(host, port);
@@ -45,18 +45,18 @@ var handler = new HttpClientHandler
 var client = new HttpClient(handler);
 
 // call constructor with configured HttpClient
-using var parser = new GeniusParser(client);
+using var parser = new ExampleParser(client);
 var result = await parser.ParseAsync(url);
 ```
 
 For the examples above, the parser code looks like this:
 ```c#
-public class GeniusParser : Parser<string>
+public class ExampleParser : Parser<string>
 {
 	// add the necessary constructors and just pass the parameters to the base constructor
-	public GeniusParser(Action<HttpWebRequest> configureRequest) : base(configureRequest) { }
+	public ExampleParser(Action<HttpWebRequest> configureRequest) : base(configureRequest) { }
 
-	public GeniusParser(HttpClient client) : base(client) { }
+	public ExampleParser(HttpClient client) : base(client) { }
 
 	protected override Task<string> ParseHtmlAsync(IDocument html)
 	{
@@ -68,7 +68,8 @@ public class GeniusParser : Parser<string>
 
 For cases when it is necessary to dynamically change the proxy, there is a `DynamicProxyParser` class that allows you to change the proxy at any time. This class also allows you to set parameters of `HttpWebRequest` and `HttpClient`:
 ```c#
-using var parser = new EmailParser((request) =>
+// ExampleParser - your inheritor of DynamicProxyParser class
+using var parser = new ExampleParser((request) =>
 {
 	request.Proxy = new WebProxy(host, port);
 });
@@ -78,7 +79,7 @@ parser.ChangeProxy("167.172.247.130", 8080);
 var result2 = await parser.ParseAsync(url);
 ```
 
-An example when you need to use other parsers inside the parser:
+A real example when you need to use other parsers inside the parser:
 ```c#
 public class TobaccoParser : Parser<IEnumerable<Store>>
 {
