@@ -1,6 +1,47 @@
 ## Description
 **NParser** is a NuGet package for parsing web pages using CSS selectors (AngleSharp).
 
+## How to use this package
+You need to inherit `Parser<T>` or `DynamicProxyParser<T>` class and override `ParseHtmlAsync` method.  
+In this method you need to find the necessary nodes in HTML document using AngleSharp with CSS selectors and convert result to the data type you need.
+
+## How to use CSS selectors
+**Basic types of selectors:**
+* `*` - any elements.
+* `div` - elements with this tag.
+* `#id` - the element with the given id.
+* `.class` - elements with this class.
+* `[name = "value"]` - selectors for an attribute.
+* `:visited` - "pseudo-classes", other different conditions for the element.
+
+**Selectors can be combined by writing sequentially, without a space:**
+* `.c1.c2` - elements with two classes c1 and c2.
+* `a#id.c1.c2:visited` - An element a with a given id, classes c1 and c2, and the visited pseudo-class.
+
+**Relations:**  
+There are four kinds of relationships between elements in CSS3.
+* `div p` - `p` elements that are children of `div`.
+* `div > p` - only immediate descendants.
+* `div ~ p` - right neighbors: all `p`'s at the same nesting level that come after the `div`.
+* `div + p` - first right neighbor: `p` at the same nesting level immediately after the `div`.
+
+**Attribute selectors:**  
+*For the whole attribute:*
+* `[attr]` - the attribute is set,
+* `[attr = "val"]` - the attribute is equal to `val`.  
+
+*For the start of the attribute:*
+* `[attr ^ = "val"]` - the attribute starts with `val`, for example `value`.
+* `[attr | = "val"]` - attribute is equal to `val` or starts with `val-`, for example equal to `val-1`.  
+
+*For the content of the attribute:*
+* `[attr * = "val"]` - the attribute contains the substring `val`, for example, it is equal to `myvalue`.
+* `[attr ~ = "val"]` - the attribute contains `val` as one of the values separated by a space. For example: `[attr ~ = "delete"]` is true for `edit delete` and not true for `undelete` and also wrong for `no-delete`.  
+
+*For the end of the attribute:*
+* `[attr $ = "val"]` - the attribute ends with `val`, for example, it is equal to `myval`.
+
+## Examples
 An example of creating a parser:
 ```c#
 public class ExampleParser : Parser<string>
@@ -22,7 +63,7 @@ using var parser = new ExampleParser();
 var result = await parser.ParseAsync("https://genius.com/Last-dinosaurs-apollo-lyrics");
 ```
 
-HttpClient and HttpWebRequest are supported for setting request parameters.
+HttpClient and HttpWebRequest are supported for setting request parameters.  
 An example using HttpWebRequest:
 ```c#
 // configure HttpWebRequest and create an instance of parser
