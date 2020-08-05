@@ -1,10 +1,17 @@
 ## Description
 **NParser** is a NuGet package for parsing web pages using CSS selectors (AngleSharp).
 
+## Table of contents
+1. [How to use this package](#package_using)
+2. [How to use CSS selectors](#selectors_description)
+3. [Examples](#examples)
+
+<a name=package_using></a>
 ## How to use this package
 You need to inherit `Parser<T>` or `DynamicProxyParser<T>` class and override `ParseHtmlAsync` method.  
 In this method you need to find the necessary nodes in HTML document using AngleSharp with CSS selectors and convert result to the data type you need.
 
+<a name=selectors_description></a>
 ## How to use CSS selectors
 **Basic types of selectors:**
 * `*` - any elements.
@@ -41,6 +48,7 @@ There are four kinds of relationships between elements in CSS3.
 *For the end of the attribute:*
 * `[attr $ = "val"]` - the attribute ends with `val`, for example, it is equal to `myval`.
 
+<a name=examples></a>
 ## Examples
 An example of creating a parser:
 ```c#
