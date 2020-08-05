@@ -22,8 +22,8 @@ In this method you need to find the necessary nodes in HTML document using Angle
 * `:visited` - "pseudo-classes", other different conditions for the element.
 
 **Selectors can be combined by writing sequentially, without a space:**
-* `.c1.c2` - elements with two classes c1 and c2.
-* `a#id.c1.c2:visited` - An element a with a given id, classes c1 and c2, and the visited pseudo-class.
+* `.c1.c2` - elements with two classes `c1` and `c2`.
+* `a#id.c1.c2:visited` - An element `a` with a given `id`, classes `c1` and `c2`, and the `visited` pseudo-class.
 
 **Relations:**  
 There are four kinds of relationships between elements in CSS3.
