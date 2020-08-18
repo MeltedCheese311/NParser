@@ -1,7 +1,6 @@
 ﻿using NParser.Factory;
 using NParser.HtmlLoading.Abstract;
 using NParser.HtmlLoading.Models;
-using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -27,9 +26,8 @@ namespace NParser.HtmlLoading
 		/// Create an instance of <see cref="HttpClientLoader"/> with default settings.
 		/// </summary>
 		internal HttpClientLoader()
-			: this(new CachedHttpClientFactory(new HttpClientFactory()))
+			: this(new CachedHttpClientFactory(new HttpClientFactory()), new HttpClient())
 		{
-			_client = new HttpClient();
 			_client.DefaultRequestHeaders.Add("User-Agent", "C# App");
 		}
 
@@ -38,9 +36,8 @@ namespace NParser.HtmlLoading
 		/// </summary>
 		/// <param name="client">Prepared instance of <see cref="HttpClient"/>.</param>
 		internal HttpClientLoader(HttpClient client)
-			: this(new CachedHttpClientFactory(new HttpClientFactory()))
+			: this(new CachedHttpClientFactory(new HttpClientFactory()), client)
 		{
-			_client = client;
 		}
 
 		/// <summary>
@@ -48,9 +45,19 @@ namespace NParser.HtmlLoading
 		/// </summary>
 		/// <param name="factory">Prepared instance of <see cref="CachedHttpClientFactory"/>.</param>
 		internal HttpClientLoader(CachedHttpClientFactory factory)
+			: this(factory, factory.CreateClient())
+		{
+		}
+
+		/// <summary>
+		/// Create an instance of <see cref="HttpClientLoader"/>.
+		/// </summary>
+		/// <param name="factory">Object for creating <see cref="HttpClient"/> with caching.</param>
+		/// <param name="client">Initial instance of <see cref="HttpClient"/>.</param>
+		private HttpClientLoader(CachedHttpClientFactory factory, HttpClient client)
 		{
 			_cachedFactory = factory;
-			_client = _cachedFactory.CreateClient();
+			_client = client;
 		}
 
 		internal override async Task<Response> GetResponseAsync(string url)

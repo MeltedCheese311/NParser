@@ -1,6 +1,4 @@
-﻿using AngleSharp;
-using AngleSharp.Dom;
-using AngleSharp.Io;
+﻿using AngleSharp.Dom;
 using NParser.Factory;
 using NParser.HtmlLoading;
 using NParser.HtmlLoading.Abstract;
@@ -21,14 +19,19 @@ namespace NParser
 		/// <summary>
 		/// Object for loading HTML of any Url.
 		/// </summary>
-		internal HtmlLoader Loader { get; }
+		private protected readonly HtmlLoader _loader;
+
+		/// <summary>
+		/// Object for loading <see cref="IDocument"/> of any Url.
+		/// </summary>
+		private readonly DocumentLoader _documentLoader;
 
 		/// <summary>
 		/// Create an instance of <see cref="Parser{T}"/> with default settings.
 		/// </summary>
 		public Parser()
+			: this(new HttpClientLoader())
 		{
-			Loader = new HttpClientLoader();
 		}
 
 		/// <summary>
@@ -36,8 +39,8 @@ namespace NParser
 		/// </summary>
 		/// <param name="client">Prepared instance of <see cref="HttpClient"/>.</param>
 		public Parser(HttpClient client)
+			: this(new HttpClientLoader(client))
 		{
-			Loader = new HttpClientLoader(client);
 		}
 
 		/// <summary>
@@ -45,8 +48,8 @@ namespace NParser
 		/// </summary>
 		/// <param name="configureRequest"><see cref="Action"/> for setting properties of <see cref="HttpWebRequest"/>.</param>
 		public Parser(Action<HttpWebRequest> configureRequest)
+			: this(new WebRequestLoader(configureRequest))
 		{
-			Loader = new WebRequestLoader(configureRequest);
 		}
 
 		/// <summary>
@@ -56,7 +59,6 @@ namespace NParser
 		internal Parser(IWebProxy proxy)
 			: this(new HttpClient(new HttpClientHandler { Proxy = proxy }))
 		{
-
 		}
 
 		/// <summary>
@@ -64,8 +66,18 @@ namespace NParser
 		/// </summary>
 		/// <param name="factory">Factory for creating <see cref="HttpClient"/>.</param>
 		internal Parser(CachedHttpClientFactory factory)
+			: this(new HttpClientLoader(factory))
 		{
-			Loader = new HttpClientLoader(factory);
+		}
+
+		/// <summary>
+		/// Create an instance of <see cref="Parser{T}"/>.
+		/// </summary>
+		/// <param name="loader">Object for loading HTML of any Url.</param>
+		private Parser(HtmlLoader loader)
+		{
+			_loader = loader;
+			_documentLoader = new DocumentLoader(_loader);
 		}
 
 		/// <summary>
@@ -75,15 +87,11 @@ namespace NParser
 		/// <returns>Parsing result as type <see cref="T"/>.</returns>
 		public async Task<T> ParseAsync(string url)
 		{
-			var html = await Loader.GetHtmlStringAsync(url);
-			var config = Configuration.Default
-				.WithDefaultLoader(new LoaderOptions { IsResourceLoadingEnabled = true })
-				.WithCss();
-			var document = await BrowsingContext.New(config).OpenAsync(x => x.Content(html));
+			var document = await _documentLoader.GetDocumentAsync(url);
 			return await ParseHtmlAsync(document);
 		}
 
-		public void Dispose() => Loader.Dispose();
+		public void Dispose() => _documentLoader.Dispose();
 
 		/// <summary>
 		/// Get the necessary data from HTML using AngleSharp and convert it to type <see cref="T"/>.
