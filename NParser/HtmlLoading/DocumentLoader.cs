@@ -41,11 +41,12 @@ namespace NParser.HtmlLoading
 		/// </summary>
 		/// <param name="url">Webpage Url.</param>
 		/// <returns>Loaded <see cref="IDocument"/> of input Url.</returns>
+		/// <exception cref="InvalidOperationException">If <see cref="HtmlLoader"/> was null.</exception>
 		internal async Task<IDocument> GetDocumentAsync(string url)
 		{
 			if (_loader == null)
 			{
-				throw new Exception($"{nameof(HtmlLoader)} == null");
+				throw new InvalidOperationException($"{nameof(HtmlLoader)} == null");
 			}
 
 			var html = await _loader.GetHtmlStringAsync(url);

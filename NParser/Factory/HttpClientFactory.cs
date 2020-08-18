@@ -63,6 +63,12 @@ namespace NParser.Factory
             return client;
         }
 
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <param name="webProxy"><inheritdoc/></param>
+        /// <returns><inheritdoc/></returns>
+        /// <exception cref="InvalidOperationException">If Func makeHandler returns null.</exception>
         public HttpClient CreateClientWithProxy(IWebProxy webProxy)
         {
             var handler = _makeHandler();

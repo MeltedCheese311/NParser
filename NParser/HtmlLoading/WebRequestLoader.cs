@@ -36,6 +36,12 @@ namespace NParser.HtmlLoading
 			_configureRequest = configureRequest;
 		}
 
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+		/// <param name="url"><inheritdoc/></param>
+		/// <returns><inheritdoc/></returns>
+		/// <exception cref="InvalidOperationException">If <see cref="HttpWebRequest"/> was null.</exception>
 		internal override async Task<Response> GetResponseAsync(string url)
 		{
 			_request = (HttpWebRequest)WebRequest.Create(url);
