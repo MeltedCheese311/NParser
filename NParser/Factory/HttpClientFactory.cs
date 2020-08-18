@@ -4,10 +4,10 @@ using System.Net.Http;
 
 namespace NParser.Factory
 {
-    /// <summary>
-    /// Factory for creating <see cref="HttpClient"/>.
-    /// </summary>
-    internal class HttpClientFactory : IHttpClientFactory
+	/// <summary>
+	/// Factory for creating <see cref="HttpClient"/>.
+	/// </summary>
+	internal class HttpClientFactory : IHttpClientFactory
     {
         /// <summary>
         /// Func for creating instance of <see cref="HttpClientHandler"/>.
@@ -63,6 +63,12 @@ namespace NParser.Factory
             return client;
         }
 
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <param name="webProxy"><inheritdoc/></param>
+        /// <returns><inheritdoc/></returns>
+        /// <exception cref="InvalidOperationException">If Func makeHandler returns null.</exception>
         public HttpClient CreateClientWithProxy(IWebProxy webProxy)
         {
             var handler = _makeHandler();

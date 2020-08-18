@@ -1,5 +1,5 @@
-﻿using NParser.Factory;
-using NParser.HtmlLoading.Abstract;
+﻿using AngleSharp.Dom;
+using NParser.Factory;
 using System;
 using System.Net;
 using System.Net.Http;
@@ -8,7 +8,7 @@ namespace NParser
 {
 	/// <summary>
 	/// <para>Abstract class with basic logic for parsing with dynamically changing proxy.</para>
-	/// <para>Child classes should override <see cref="Parser{T}.ParseHtml(IDocument)"/> for parsing a specific site using NuGet AngleSharp.</para>
+	/// <para>Child classes should override <see cref="Parser{T}.ParseHtmlAsync(IDocument)"/> for parsing a specific site using NuGet AngleSharp.</para>
 	/// </summary>
 	/// <typeparam name="T">Parsing result type.</typeparam>
 	public abstract class DynamicProxyParser<T> : Parser<T>
@@ -20,7 +20,6 @@ namespace NParser
 		public DynamicProxyParser(IWebProxy proxy)
 			: base(proxy)
 		{
-
 		}
 
 		/// <summary>
@@ -31,7 +30,6 @@ namespace NParser
 		public DynamicProxyParser(string host, int port)
 			: base(new WebProxy(host, port))
 		{
-
 		}
 
 		/// <summary>
@@ -41,7 +39,6 @@ namespace NParser
 		public DynamicProxyParser(Action<HttpWebRequest> configureRequest)
 			: base(configureRequest)
 		{
-
 		}
 
 		/// <summary>
@@ -52,7 +49,6 @@ namespace NParser
 		public DynamicProxyParser(Func<HttpClientHandler> makeHandler, Action<HttpClient> configureClient)
 			: base(new CachedHttpClientFactory(new HttpClientFactory(makeHandler, configureClient)))
 		{
-
 		}
 
 		/// <summary>
@@ -62,14 +58,13 @@ namespace NParser
 		public DynamicProxyParser(Func<HttpClientHandler> makeHandler)
 			: base(new CachedHttpClientFactory(new HttpClientFactory(makeHandler)))
 		{
-
 		}
 
 		/// <summary>
 		/// Change proxy for next requests.
 		/// </summary>
 		/// <param name="proxy">Prepared proxy.</param>
-		public void ChangeProxy(IWebProxy proxy) => Loader.ChangeProxy(proxy);
+		public void ChangeProxy(IWebProxy proxy) => _loader.ChangeProxy(proxy);
 
 		/// <summary>
 		/// Change proxy for next requests.

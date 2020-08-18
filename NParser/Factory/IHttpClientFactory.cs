@@ -3,10 +3,10 @@ using System.Net.Http;
 
 namespace NParser.Factory
 {
-    /// <summary>
-    /// Factory for creating <see cref="HttpClient"/>.
-    /// </summary>
-    internal interface IHttpClientFactory
+	/// <summary>
+	/// Factory for creating <see cref="HttpClient"/>.
+	/// </summary>
+	internal interface IHttpClientFactory
     {
         /// <summary>
         /// Create an instance of <see cref="HttpClient"/>.
