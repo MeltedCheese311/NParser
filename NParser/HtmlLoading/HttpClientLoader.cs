@@ -72,6 +72,6 @@ namespace NParser.HtmlLoading
 
 		internal override void ChangeProxy(IWebProxy proxy) => _client = _cachedFactory.CreateClientWithProxy(proxy);
 
-		public override void Dispose() => _cachedFactory.Dispose();
+		public override void Dispose() => _cachedFactory?.Dispose();
 	}
 }

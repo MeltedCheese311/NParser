@@ -10,12 +10,14 @@ namespace NParser
 	/// <summary>
 	/// Simple class for parsing webpages using CSS-selectors.
 	/// </summary>
-	public sealed class DefaultParser
+	public sealed class DefaultParser : IDisposable
 	{
 		/// <summary>
 		/// Object for loading <see cref="IDocument"/> of any Url.
 		/// </summary>
 		private readonly DocumentLoader _documentLoader = new DocumentLoader();
+
+		public void Dispose() => _documentLoader?.Dispose();
 
 		/// <summary>
 		/// Parse the site.
