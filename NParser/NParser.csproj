@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <Description>Package for parsing web pages using CSS selectors (AngleSharp).
 Description: https://github.com/MeltedCheese311/NParser</Description>
     <RepositoryUrl>https://github.com/MeltedCheese311/NParser</RepositoryUrl>
