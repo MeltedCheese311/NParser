@@ -91,7 +91,7 @@ namespace NParser
 			return await ParseHtmlAsync(document);
 		}
 
-		public void Dispose() => _documentLoader.Dispose();
+		public void Dispose() => _documentLoader?.Dispose();
 
 		/// <summary>
 		/// Get the necessary data from HTML using AngleSharp and convert it to type <see cref="T"/>.
