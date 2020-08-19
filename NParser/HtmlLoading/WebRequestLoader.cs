@@ -57,8 +57,10 @@ namespace NParser.HtmlLoading
 
 			if (statusCode == HttpStatusCode.OK)
 			{
-				using var reader = new StreamReader(response.GetResponseStream());
-				return new Response(await reader.ReadToEndAsync());
+				using (var reader = new StreamReader(response.GetResponseStream()))
+				{
+					return new Response(await reader.ReadToEndAsync());
+				}
 			}
 			else
 			{
