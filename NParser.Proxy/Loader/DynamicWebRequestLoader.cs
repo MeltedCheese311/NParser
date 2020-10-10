@@ -1,4 +1,5 @@
 ﻿using HtmlLoading.Loaders;
+using HtmlLoading.Loaders.Abstract;
 using NParser.Proxy.Loader.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace NParser.Proxy.Loader
 	public sealed class DynamicWebRequestLoader : WebRequestLoader, IProxyChanger
 	{
 		/// <summary>
-		/// Create an instance of <see cref="WebRequestLoader"/> with prepared properties of <see cref="HttpWebRequest"/>. 
+		/// Create an instance of <see cref="DynamicWebRequestLoader"/> with prepared properties of <see cref="HttpWebRequest"/>. 
 		/// </summary>
 		/// <param name="configureRequest"><see cref="Action"/> for set settings of <see cref="HttpWebRequest"/>.</param>
 		public DynamicWebRequestLoader(Action<HttpWebRequest> configureRequest)
