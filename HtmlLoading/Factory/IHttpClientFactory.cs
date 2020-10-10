@@ -1,12 +1,12 @@
 ﻿using System.Net;
 using System.Net.Http;
 
-namespace NParser.Factory
+namespace HtmlLoading.Factory
 {
 	/// <summary>
 	/// Factory for creating <see cref="HttpClient"/>.
 	/// </summary>
-	internal interface IHttpClientFactory
+	public interface IHttpClientFactory
     {
         /// <summary>
         /// Create an instance of <see cref="HttpClient"/>.

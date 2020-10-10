@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\Projects\NuGet\NParser\NParser.Proxy\NParser.Proxy.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NParser\NParser.csproj" />
+    <ProjectReference Include="..\ProxyChanging\ProxyChanging.csproj" />
+  </ItemGroup>
+
+</Project>

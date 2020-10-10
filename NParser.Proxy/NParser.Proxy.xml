@@ -1,0 +1,187 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NParser.Proxy</name>
+    </assembly>
+    <members>
+        <member name="T:NParser.Proxy.Abstract.AutoProxyParser`1">
+            <summary>
+            Decorator of <see cref="T:NParser.DynamicProxyParser`1"/> for automatically changing proxy when an incorrect request is made.
+            </summary>
+            <typeparam name="T">Parsing result type.</typeparam>
+        </member>
+        <member name="F:NParser.Proxy.Abstract.AutoProxyParser`1._innerParser">
+            <summary>
+            Object for parsing webpages with dynamic proxy.
+            </summary>
+        </member>
+        <member name="F:NParser.Proxy.Abstract.AutoProxyParser`1._proxyGetter">
+            <summary>
+            Object for getting a new proxy.
+            </summary>
+        </member>
+        <member name="F:NParser.Proxy.Abstract.AutoProxyParser`1._cancellationTokenSource">
+            <summary>
+            Object for cancel all cancellation tokens.
+            </summary>
+        </member>
+        <member name="M:NParser.Proxy.Abstract.AutoProxyParser`1.#ctor(NParser.DynamicProxyParser{`0},ProxyChanging.Provider.IProxyProvider)">
+            <summary>
+            Create an instance of <see cref="T:NParser.Proxy.Abstract.AutoProxyParser`1"/> with default instance of <see cref="T:ProxyChanging.Changer.ProxyGetter"/>.
+            </summary>
+            <param name="dynamicProxyParser">Object for parsing webpages with dynamic proxy.</param>
+            <param name="proxyProvider">Object for getting list of proxies.</param>
+        </member>
+        <member name="M:NParser.Proxy.Abstract.AutoProxyParser`1.#ctor(NParser.DynamicProxyParser{`0},ProxyChanging.Changer.IProxyGetter)">
+            <summary>
+            Create an instance of <see cref="T:NParser.Proxy.Abstract.AutoProxyParser`1"/>.
+            </summary>
+            <param name="dynamicProxyParser">Object for parsing webpages with dynamic proxy.</param>
+            <param name="proxyGetter">Object for getting a new proxy.</param>
+        </member>
+        <member name="E:NParser.Proxy.Abstract.AutoProxyParser`1.AutoProxyChanged">
+            <summary>
+            Automatically proxy changed event.
+            </summary>
+        </member>
+        <member name="M:NParser.Proxy.Abstract.AutoProxyParser`1.ParseAsync(System.String)">
+            <summary>
+            <inheritdoc/>
+            </summary>
+            <param name="url"><inheritdoc/></param>
+            <returns><inheritdoc/></returns>
+            <exception cref="T:System.ArgumentNullException">One of the arguments passed to the constructor is null.</exception>
+        </member>
+        <member name="M:NParser.Proxy.Abstract.AutoProxyParser`1.StopChangingProxy">
+            <summary>
+            Stop changing proxy.
+            </summary>
+        </member>
+        <member name="T:NParser.Proxy.Events.AutoProxyChangedEventHandler">
+            <summary>
+            Delegate for automatically proxy changed event.
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="T:NParser.Proxy.Events.AutoProxyChangedEventArgs">
+            <summary>
+            Event args for automatically proxy changed event.
+            </summary>
+        </member>
+        <member name="M:NParser.Proxy.Events.AutoProxyChangedEventArgs.#ctor(System.Exception,System.Net.IWebProxy)">
+            <summary>
+            Create instance of <see cref="T:NParser.Proxy.Events.AutoProxyChangedEventArgs"/>.
+            </summary>
+            <param name="exception">An exception due to which the proxy changes.</param>
+            <param name="newProxy">New proxy.</param>
+        </member>
+        <member name="P:NParser.Proxy.Events.AutoProxyChangedEventArgs.Exception">
+            <summary>
+            An exception due to which the proxy changes.
+            </summary>
+        </member>
+        <member name="P:NParser.Proxy.Events.AutoProxyChangedEventArgs.NewProxy">
+            <summary>
+            New proxy.
+            </summary>
+        </member>
+        <member name="T:NParser.Proxy.Loader.Abstractions.IProxyChanger">
+            <summary>
+            Interface for changing current proxy.
+            </summary>
+        </member>
+        <member name="M:NParser.Proxy.Loader.Abstractions.IProxyChanger.ChangeProxy(System.Net.IWebProxy)">
+            <summary>
+            Change current proxy.
+            </summary>
+            <param name="proxy">New proxy.</param>
+        </member>
+        <member name="T:NParser.Proxy.Loader.DynamicHttpClientLoader">
+            <summary>
+            <inheritdoc/> It is possible to change the proxy.
+            </summary>
+        </member>
+        <member name="M:NParser.Proxy.Loader.DynamicHttpClientLoader.#ctor">
+            <summary>
+            Create an instance of <see cref="T:HtmlLoading.Loaders.HttpClientLoader"/> with default settings.
+            </summary>
+        </member>
+        <member name="M:NParser.Proxy.Loader.DynamicHttpClientLoader.#ctor(System.Net.Http.HttpClient)">
+            <summary>
+            Create an instance of <see cref="T:HtmlLoading.Loaders.HttpClientLoader"/> with prepared <see cref="T:System.Net.Http.HttpClient"/>.     
+            </summary>
+            <param name="client">Prepared instance of <see cref="T:System.Net.Http.HttpClient"/>.</param>
+        </member>
+        <member name="M:NParser.Proxy.Loader.DynamicHttpClientLoader.#ctor(HtmlLoading.Factory.CachedHttpClientFactory)">
+            <summary>
+            Create an instance of <see cref="T:HtmlLoading.Loaders.HttpClientLoader"/> with prepared <see cref="T:HtmlLoading.Factory.CachedHttpClientFactory"/>.
+            </summary>
+            <param name="factory">Prepared instance of <see cref="T:HtmlLoading.Factory.CachedHttpClientFactory"/>.</param>
+        </member>
+        <member name="T:NParser.Proxy.Loader.DynamicWebRequestLoader">
+            <summary>
+            <inheritdoc/> It is possible to change the proxy.
+            </summary>
+        </member>
+        <member name="M:NParser.Proxy.Loader.DynamicWebRequestLoader.#ctor(System.Action{System.Net.HttpWebRequest})">
+            <summary>
+            Create an instance of <see cref="T:HtmlLoading.Loaders.WebRequestLoader"/> with prepared properties of <see cref="T:System.Net.HttpWebRequest"/>. 
+            </summary>
+            <param name="configureRequest"><see cref="T:System.Action"/> for set settings of <see cref="T:System.Net.HttpWebRequest"/>.</param>
+        </member>
+        <member name="T:NParser.DynamicProxyParser`1">
+            <summary>
+            <para>Abstract class with basic logic for parsing with dynamically changing proxy.</para>
+            <para>Child classes should override <see cref="M:NParser.Parser`1.ParseHtmlAsync(AngleSharp.Dom.IDocument)"/> for parsing a specific site using NuGet AngleSharp.</para>
+            </summary>
+            <typeparam name="T">Parsing result type.</typeparam>
+        </member>
+        <member name="M:NParser.DynamicProxyParser`1.#ctor(System.Net.IWebProxy)">
+            <summary>
+            Create an instance of <see cref="T:NParser.DynamicProxyParser`1"/> with prepared <see cref="T:System.Net.IWebProxy"/>.
+            </summary>
+            <param name="proxy">Prepared proxy.</param>
+        </member>
+        <member name="M:NParser.DynamicProxyParser`1.#ctor(System.String,System.Int32)">
+            <summary>
+            Create an instance of <see cref="T:NParser.DynamicProxyParser`1"/> with proxy.
+            </summary>
+            <param name="host">The name of the proxy host.</param>
+            <param name="port">The port number of host to use.</param>
+        </member>
+        <member name="M:NParser.DynamicProxyParser`1.#ctor(System.Action{System.Net.HttpWebRequest})">
+            <summary>
+            Create an instance of <see cref="T:NParser.DynamicProxyParser`1"/> with prepared <see cref="T:System.Net.HttpWebRequest"/>.
+            </summary>
+            <param name="configureRequest"><see cref="T:System.Action"/> for setting properties of <see cref="T:System.Net.HttpWebRequest"/>.</param>
+        </member>
+        <member name="M:NParser.DynamicProxyParser`1.#ctor(System.Func{System.Net.Http.HttpClientHandler},System.Action{System.Net.Http.HttpClient})">
+            <summary>
+            Create an instance of <see cref="T:NParser.DynamicProxyParser`1"/> with prepared <see cref="T:System.Net.Http.HttpClient"/>.
+            </summary>
+            <param name="makeHandler"><see cref="T:System.Func`1"/> for creating an instance of <see cref="T:System.Net.Http.HttpClientHandler"/>.</param>
+            <param name="configureClient"><see cref="T:System.Action"/> for setting properties of <see cref="T:System.Net.Http.HttpClient"/>.</param>
+        </member>
+        <member name="M:NParser.DynamicProxyParser`1.#ctor(System.Func{System.Net.Http.HttpClientHandler})">
+            <summary>
+            Create an instance of <see cref="T:NParser.DynamicProxyParser`1"/> with prepared <see cref="T:System.Net.Http.HttpClient"/>.
+            </summary>
+            <param name="makeHandler"><see cref="T:System.Func`1"/> for creating an instance of <see cref="T:System.Net.Http.HttpClientHandler"/>.</param>
+        </member>
+        <member name="M:NParser.DynamicProxyParser`1.ChangeProxy(System.Net.IWebProxy)">
+            <summary>
+            Change proxy for next requests.
+            </summary>
+            <param name="proxy">Prepared proxy.</param>
+            <exception cref="T:System.InvalidOperationException">If <see cref="T:HtmlLoading.Loaders.Abstract.HtmlLoader"/> not implement <see cref="T:NParser.Proxy.Loader.Abstractions.IProxyChanger"/>.</exception>
+        </member>
+        <member name="M:NParser.DynamicProxyParser`1.ChangeProxy(System.String,System.Int32)">
+            <summary>
+            Change proxy for next requests.
+            </summary>
+            <param name="host">The name of the proxy host.</param>
+            <param name="port">The port number of host to use.</param>
+        </member>
+    </members>
+</doc>

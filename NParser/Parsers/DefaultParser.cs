@@ -1,5 +1,5 @@
 ﻿using AngleSharp.Dom;
-using NParser.HtmlLoading;
+using HtmlLoading.Loaders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,10 +25,15 @@ namespace NParser
 		/// <param name="url">Website Url.</param>
 		/// <param name="query">Query with CSS-selectors.</param>
 		/// <returns>Text content of all HTML document nodes that finded using CSS-selectors.</returns>
-		public async Task<IEnumerable<string>> ParseAsync(string url, string query)
+		public async Task<IEnumerable<string>> ParseAsync(
+			string url,
+			string query)
 		{
 			var document = await _documentLoader.GetDocumentAsync(url);
-			return document.QuerySelectorAll(query).Select(x => x?.TextContent).Where(x => !string.IsNullOrWhiteSpace(x));
+			return document
+				.QuerySelectorAll(query)
+				.Select(x => x?.TextContent)
+				.Where(x => !string.IsNullOrWhiteSpace(x));
 		}
 	}
 }

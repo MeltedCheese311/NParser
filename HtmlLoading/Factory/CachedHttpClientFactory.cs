@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 
-namespace NParser.Factory
+namespace HtmlLoading.Factory
 {
 	/// <summary>
 	/// Factory for creating <see cref="HttpClient"/> with caching.
 	/// </summary>
-	internal class CachedHttpClientFactory : IHttpClientFactory, IDisposable
+	public class CachedHttpClientFactory : IHttpClientFactory, IDisposable
     {
         /// <summary>
         /// Factory for creating <see cref="HttpClient"/>.

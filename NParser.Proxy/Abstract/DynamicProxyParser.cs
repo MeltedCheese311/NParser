@@ -1,8 +1,14 @@
 ﻿using AngleSharp.Dom;
-using NParser.Factory;
+using HtmlLoading.Factory;
+using HtmlLoading.Loaders.Abstract;
+using NParser.Proxy.Loader;
+using NParser.Proxy.Loader.Abstractions;
+using ProxyChanging.Changer;
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 
 namespace NParser
 {
@@ -11,14 +17,17 @@ namespace NParser
 	/// <para>Child classes should override <see cref="Parser{T}.ParseHtmlAsync(IDocument)"/> for parsing a specific site using NuGet AngleSharp.</para>
 	/// </summary>
 	/// <typeparam name="T">Parsing result type.</typeparam>
-	public abstract class DynamicProxyParser<T> : Parser<T>
+	public abstract class DynamicProxyParser<T> : Parser<T>, IProxyChanger
 	{
 		/// <summary>
 		/// Create an instance of <see cref="DynamicProxyParser{T}"/> with prepared <see cref="IWebProxy"/>.
 		/// </summary>
 		/// <param name="proxy">Prepared proxy.</param>
 		public DynamicProxyParser(IWebProxy proxy)
-			: base(proxy)
+			: base(
+				  new DynamicHttpClientLoader(
+					  new HttpClient(
+						  new HttpClientHandler { Proxy = proxy })))
 		{
 		}
 
@@ -27,8 +36,10 @@ namespace NParser
 		/// </summary>
 		/// <param name="host">The name of the proxy host.</param>
 		/// <param name="port">The port number of host to use.</param>
-		public DynamicProxyParser(string host, int port)
-			: base(new WebProxy(host, port))
+		public DynamicProxyParser(
+			string host,
+			int port)
+			: this(new WebProxy(host, port))
 		{
 		}
 
@@ -37,7 +48,7 @@ namespace NParser
 		/// </summary>
 		/// <param name="configureRequest"><see cref="Action"/> for setting properties of <see cref="HttpWebRequest"/>.</param>
 		public DynamicProxyParser(Action<HttpWebRequest> configureRequest)
-			: base(configureRequest)
+			: base(new DynamicWebRequestLoader(configureRequest))
 		{
 		}
 
@@ -46,8 +57,15 @@ namespace NParser
 		/// </summary>
 		/// <param name="makeHandler"><see cref="Func{TResult}"/> for creating an instance of <see cref="HttpClientHandler"/>.</param>
 		/// <param name="configureClient"><see cref="Action"/> for setting properties of <see cref="HttpClient"/>.</param>
-		public DynamicProxyParser(Func<HttpClientHandler> makeHandler, Action<HttpClient> configureClient)
-			: base(new CachedHttpClientFactory(new HttpClientFactory(makeHandler, configureClient)))
+		public DynamicProxyParser(
+			Func<HttpClientHandler> makeHandler,
+			Action<HttpClient> configureClient)
+			: base(
+				  new DynamicHttpClientLoader(
+					  new CachedHttpClientFactory(
+						  new HttpClientFactory(
+							  makeHandler,
+							  configureClient))))
 		{
 		}
 
@@ -56,7 +74,10 @@ namespace NParser
 		/// </summary>
 		/// <param name="makeHandler"><see cref="Func{TResult}"/> for creating an instance of <see cref="HttpClientHandler"/>.</param>
 		public DynamicProxyParser(Func<HttpClientHandler> makeHandler)
-			: base(new CachedHttpClientFactory(new HttpClientFactory(makeHandler)))
+			: base(
+				  new DynamicHttpClientLoader(
+					  new CachedHttpClientFactory(
+						  new HttpClientFactory(makeHandler))))
 		{
 		}
 
@@ -64,7 +85,16 @@ namespace NParser
 		/// Change proxy for next requests.
 		/// </summary>
 		/// <param name="proxy">Prepared proxy.</param>
-		public void ChangeProxy(IWebProxy proxy) => _loader.ChangeProxy(proxy);
+		/// <exception cref="InvalidOperationException">If <see cref="HtmlLoader"/> not implement <see cref="IProxyChanger"/>.</exception>
+		public void ChangeProxy(IWebProxy proxy)
+		{
+			if (!(_loader is IProxyChanger proxyChanger))
+			{
+				throw new InvalidOperationException($"Unable to change proxy because {nameof(_loader)} not implement {nameof(IProxyChanger)}.");
+			}
+
+			proxyChanger.ChangeProxy(proxy);
+		}
 
 		/// <summary>
 		/// Change proxy for next requests.

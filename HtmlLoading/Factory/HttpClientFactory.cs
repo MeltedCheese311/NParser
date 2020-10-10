@@ -2,12 +2,12 @@
 using System.Net;
 using System.Net.Http;
 
-namespace NParser.Factory
+namespace HtmlLoading.Factory
 {
 	/// <summary>
 	/// Factory for creating <see cref="HttpClient"/>.
 	/// </summary>
-	internal class HttpClientFactory : IHttpClientFactory
+	public class HttpClientFactory : IHttpClientFactory
     {
         /// <summary>
         /// Func for creating instance of <see cref="HttpClientHandler"/>.
@@ -24,7 +24,9 @@ namespace NParser.Factory
         /// </summary>
         /// <param name="makeHandler">Func for creating instance of <see cref="HttpClientHandler"/>.</param>
         /// <param name="configureClient">Action for configuring <see cref="HttpClient"/>.</param>
-        public HttpClientFactory(Func<HttpClientHandler> makeHandler, Action<HttpClient> configureClient)
+        public HttpClientFactory(
+            Func<HttpClientHandler> makeHandler,
+            Action<HttpClient> configureClient)
         {
             _makeHandler = makeHandler;
             _configureClient = configureClient;
