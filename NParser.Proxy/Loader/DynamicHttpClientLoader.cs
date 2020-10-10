@@ -1,5 +1,6 @@
 ﻿using HtmlLoading.Factory;
 using HtmlLoading.Loaders;
+using HtmlLoading.Loaders.Abstract;
 using NParser.Proxy.Loader.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -15,37 +16,28 @@ namespace NParser.Proxy.Loader
 	public sealed class DynamicHttpClientLoader : HttpClientLoader, IProxyChanger
 	{
 		/// <summary>
-		/// Create an instance of <see cref="HttpClientLoader"/> with default settings.
+		/// Create an instance of <see cref="DynamicHttpClientLoader"/> with default settings.
 		/// </summary>
 		public DynamicHttpClientLoader()
-			: base(
-				  new CachedHttpClientFactory(
-					  new HttpClientFactory()),
-				  new HttpClient())
+			: base()
 		{
-			_client.DefaultRequestHeaders.Add("User-Agent", "C# App");
 		}
 
 		/// <summary>
-		/// Create an instance of <see cref="HttpClientLoader"/> with prepared <see cref="HttpClient"/>.     
+		/// Create an instance of <see cref="DynamicHttpClientLoader"/> with prepared <see cref="HttpClient"/>.     
 		/// </summary>
 		/// <param name="client">Prepared instance of <see cref="HttpClient"/>.</param>
 		public DynamicHttpClientLoader(HttpClient client)
-			: base(
-				  new CachedHttpClientFactory(
-					  new HttpClientFactory()),
-				  client)
+			: base(client)
 		{
 		}
 
 		/// <summary>
-		/// Create an instance of <see cref="HttpClientLoader"/> with prepared <see cref="CachedHttpClientFactory"/>.
+		/// Create an instance of <see cref="DynamicHttpClientLoader"/> with prepared <see cref="CachedHttpClientFactory"/>.
 		/// </summary>
 		/// <param name="factory">Prepared instance of <see cref="CachedHttpClientFactory"/>.</param>
 		public DynamicHttpClientLoader(CachedHttpClientFactory factory)
-			: base(
-				  factory,
-				  factory.CreateClient())
+			: base(factory)
 		{
 		}
 
