@@ -26,4 +26,8 @@ Description: https://github.com/MeltedCheese311/NParser</Description>
     <PackageReference Include="AngleSharp.Css" Version="0.14.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HtmlLoading\HtmlLoading.csproj" />
+  </ItemGroup>
+
 </Project>

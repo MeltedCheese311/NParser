@@ -4,57 +4,18 @@
         <name>NParser</name>
     </assembly>
     <members>
-        <member name="T:NParser.DynamicProxyParser`1">
+        <member name="T:NParser.Abstract.IParser`1">
             <summary>
-            <para>Abstract class with basic logic for parsing with dynamically changing proxy.</para>
-            <para>Child classes should override <see cref="M:NParser.Parser`1.ParseHtmlAsync(AngleSharp.Dom.IDocument)"/> for parsing a specific site using NuGet AngleSharp.</para>
+            Interface for parsing web pages.
             </summary>
             <typeparam name="T">Parsing result type.</typeparam>
         </member>
-        <member name="M:NParser.DynamicProxyParser`1.#ctor(System.Net.IWebProxy)">
+        <member name="M:NParser.Abstract.IParser`1.ParseAsync(System.String)">
             <summary>
-            Create an instance of <see cref="T:NParser.DynamicProxyParser`1"/> with prepared <see cref="T:System.Net.IWebProxy"/>.
+            Parse the site.
             </summary>
-            <param name="proxy">Prepared proxy.</param>
-        </member>
-        <member name="M:NParser.DynamicProxyParser`1.#ctor(System.String,System.Int32)">
-            <summary>
-            Create an instance of <see cref="T:NParser.DynamicProxyParser`1"/> with proxy.
-            </summary>
-            <param name="host">The name of the proxy host.</param>
-            <param name="port">The port number of host to use.</param>
-        </member>
-        <member name="M:NParser.DynamicProxyParser`1.#ctor(System.Action{System.Net.HttpWebRequest})">
-            <summary>
-            Create an instance of <see cref="T:NParser.DynamicProxyParser`1"/> with prepared <see cref="T:System.Net.HttpWebRequest"/>.
-            </summary>
-            <param name="configureRequest"><see cref="T:System.Action"/> for setting properties of <see cref="T:System.Net.HttpWebRequest"/>.</param>
-        </member>
-        <member name="M:NParser.DynamicProxyParser`1.#ctor(System.Func{System.Net.Http.HttpClientHandler},System.Action{System.Net.Http.HttpClient})">
-            <summary>
-            Create an instance of <see cref="T:NParser.DynamicProxyParser`1"/> with prepared <see cref="T:System.Net.Http.HttpClient"/>.
-            </summary>
-            <param name="makeHandler"><see cref="T:System.Func`1"/> for creating an instance of <see cref="T:System.Net.Http.HttpClientHandler"/>.</param>
-            <param name="configureClient"><see cref="T:System.Action"/> for setting properties of <see cref="T:System.Net.Http.HttpClient"/>.</param>
-        </member>
-        <member name="M:NParser.DynamicProxyParser`1.#ctor(System.Func{System.Net.Http.HttpClientHandler})">
-            <summary>
-            Create an instance of <see cref="T:NParser.DynamicProxyParser`1"/> with prepared <see cref="T:System.Net.Http.HttpClient"/>.
-            </summary>
-            <param name="makeHandler"><see cref="T:System.Func`1"/> for creating an instance of <see cref="T:System.Net.Http.HttpClientHandler"/>.</param>
-        </member>
-        <member name="M:NParser.DynamicProxyParser`1.ChangeProxy(System.Net.IWebProxy)">
-            <summary>
-            Change proxy for next requests.
-            </summary>
-            <param name="proxy">Prepared proxy.</param>
-        </member>
-        <member name="M:NParser.DynamicProxyParser`1.ChangeProxy(System.String,System.Int32)">
-            <summary>
-            Change proxy for next requests.
-            </summary>
-            <param name="host">The name of the proxy host.</param>
-            <param name="port">The port number of host to use.</param>
+            <param name="url">Website Url.</param>
+            <returns>Parsing result as type <see cref="!:T"/>.</returns>
         </member>
         <member name="T:NParser.Parser`1">
             <summary>
@@ -90,19 +51,7 @@
             </summary>
             <param name="configureRequest"><see cref="T:System.Action"/> for setting properties of <see cref="T:System.Net.HttpWebRequest"/>.</param>
         </member>
-        <member name="M:NParser.Parser`1.#ctor(System.Net.IWebProxy)">
-            <summary>
-            Create an instance of <see cref="T:NParser.Parser`1"/> with prepared <see cref="T:System.Net.IWebProxy"/>.
-            </summary>
-            <param name="proxy">Proxy.</param>
-        </member>
-        <member name="M:NParser.Parser`1.#ctor(NParser.Factory.CachedHttpClientFactory)">
-            <summary>
-            Create an instance of <see cref="T:NParser.Parser`1"/> with prepared <see cref="T:NParser.Factory.CachedHttpClientFactory"/>.
-            </summary>
-            <param name="factory">Factory for creating <see cref="T:System.Net.Http.HttpClient"/>.</param>
-        </member>
-        <member name="M:NParser.Parser`1.#ctor(NParser.HtmlLoading.Abstract.HtmlLoader)">
+        <member name="M:NParser.Parser`1.#ctor(HtmlLoading.Loaders.Abstract.HtmlLoader)">
             <summary>
             Create an instance of <see cref="T:NParser.Parser`1"/>.
             </summary>
@@ -110,10 +59,12 @@
         </member>
         <member name="M:NParser.Parser`1.ParseAsync(System.String)">
             <summary>
-            Parse the site. This method use logic of overridden method <see cref="M:NParser.Parser`1.ParseHtmlAsync(AngleSharp.Dom.IDocument)"/>.
+            <inheritdoc/> This method use logic of overridden method <see cref="M:NParser.Parser`1.ParseHtmlAsync(AngleSharp.Dom.IDocument)"/>.
             </summary>
-            <param name="url">Website Url.</param>
-            <returns>Parsing result as type <see cref="!:T"/>.</returns>
+            <param name="url"><inheritdoc/></param>
+            <returns><inheritdoc/></returns>
+            <exception cref="T:System.Net.Http.HttpRequestException"></exception>
+            <exception cref="T:System.Net.WebException"></exception>
         </member>
         <member name="M:NParser.Parser`1.ParseHtmlAsync(AngleSharp.Dom.IDocument)">
             <summary>
@@ -139,263 +90,6 @@
             <param name="url">Website Url.</param>
             <param name="query">Query with CSS-selectors.</param>
             <returns>Text content of all HTML document nodes that finded using CSS-selectors.</returns>
-        </member>
-        <member name="T:NParser.Factory.CachedHttpClientFactory">
-            <summary>
-            Factory for creating <see cref="T:System.Net.Http.HttpClient"/> with caching.
-            </summary>
-        </member>
-        <member name="F:NParser.Factory.CachedHttpClientFactory._httpClientFactory">
-            <summary>
-            Factory for creating <see cref="T:System.Net.Http.HttpClient"/>.
-            </summary>
-        </member>
-        <member name="F:NParser.Factory.CachedHttpClientFactory._cache">
-            <summary>
-            Cached instances of <see cref="T:System.Net.Http.HttpClient"/> by <see cref="P:System.Net.Http.HttpClientHandler.Proxy"/>.
-            </summary>
-        </member>
-        <member name="M:NParser.Factory.CachedHttpClientFactory.#ctor(NParser.Factory.IHttpClientFactory)">
-            <summary>
-            Create an instance of <see cref="T:NParser.Factory.CachedHttpClientFactory"/>.
-            </summary>
-            <param name="httpClientFactory">Factory for creating <see cref="T:System.Net.Http.HttpClient"/>.</param>
-        </member>
-        <member name="M:NParser.Factory.CachedHttpClientFactory.CreateClient">
-            <summary>
-            Create instance of <see cref="T:System.Net.Http.HttpClient"/>.
-            <para>If the same instance was created earlier, it will be taken from the cache.</para>
-            </summary>
-            <returns>Instance of <see cref="T:System.Net.Http.HttpClient"/>.</returns>
-        </member>
-        <member name="M:NParser.Factory.CachedHttpClientFactory.CreateClientWithProxy(System.Net.IWebProxy)">
-            <summary>
-            Create instance of <see cref="T:System.Net.Http.HttpClient"/>.
-            <para>If the same instance was created earlier, it will be taken from the cache.</para>
-            </summary>
-            <param name="webProxy">Proxy.</param>
-            <returns>Instance of <see cref="T:System.Net.Http.HttpClient"/>.</returns>
-        </member>
-        <member name="T:NParser.Factory.HttpClientFactory">
-            <summary>
-            Factory for creating <see cref="T:System.Net.Http.HttpClient"/>.
-            </summary>
-        </member>
-        <member name="F:NParser.Factory.HttpClientFactory._makeHandler">
-            <summary>
-            Func for creating instance of <see cref="T:System.Net.Http.HttpClientHandler"/>.
-            </summary>
-        </member>
-        <member name="F:NParser.Factory.HttpClientFactory._configureClient">
-            <summary>
-            Func for creating instance of <see cref="T:System.Net.Http.HttpClient"/>.
-            </summary>
-        </member>
-        <member name="M:NParser.Factory.HttpClientFactory.#ctor(System.Func{System.Net.Http.HttpClientHandler},System.Action{System.Net.Http.HttpClient})">
-            <summary>
-            Create an instance of <see cref="T:NParser.Factory.HttpClientFactory"/>.
-            </summary>
-            <param name="makeHandler">Func for creating instance of <see cref="T:System.Net.Http.HttpClientHandler"/>.</param>
-            <param name="configureClient">Action for configuring <see cref="T:System.Net.Http.HttpClient"/>.</param>
-        </member>
-        <member name="M:NParser.Factory.HttpClientFactory.#ctor(System.Func{System.Net.Http.HttpClientHandler})">
-            <summary>
-            Create an instance of <see cref="T:NParser.Factory.HttpClientFactory"/>.
-            </summary>
-            <param name="makeHandler">Func for creating instance of <see cref="T:System.Net.Http.HttpClientHandler"/>.</param>
-        </member>
-        <member name="M:NParser.Factory.HttpClientFactory.#ctor">
-            <summary>
-            Create an instance of <see cref="T:NParser.Factory.HttpClientFactory"/> with default settings.
-            </summary>
-        </member>
-        <member name="M:NParser.Factory.HttpClientFactory.CreateClientWithProxy(System.Net.IWebProxy)">
-            <summary>
-            <inheritdoc/>
-            </summary>
-            <param name="webProxy"><inheritdoc/></param>
-            <returns><inheritdoc/></returns>
-            <exception cref="T:System.InvalidOperationException">If Func makeHandler returns null.</exception>
-        </member>
-        <member name="T:NParser.Factory.IHttpClientFactory">
-            <summary>
-            Factory for creating <see cref="T:System.Net.Http.HttpClient"/>.
-            </summary>
-        </member>
-        <member name="M:NParser.Factory.IHttpClientFactory.CreateClient">
-            <summary>
-            Create an instance of <see cref="T:System.Net.Http.HttpClient"/>.
-            </summary>
-            <returns>Instance of <see cref="T:System.Net.Http.HttpClient"/>.</returns>
-        </member>
-        <member name="M:NParser.Factory.IHttpClientFactory.CreateClientWithProxy(System.Net.IWebProxy)">
-            <summary>
-            Create an instance of <see cref="T:System.Net.Http.HttpClient"/>.
-            </summary>
-            <param name="webProxy">Proxy.</param>
-            <returns>Instance of <see cref="T:System.Net.Http.HttpClient"/>.</returns>
-        </member>
-        <member name="T:NParser.HtmlLoading.Abstract.HtmlLoader">
-            <summary>
-            Class for loading HTML of any Url.
-            </summary>
-        </member>
-        <member name="M:NParser.HtmlLoading.Abstract.HtmlLoader.GetHtmlStringAsync(System.String)">
-            <summary>
-            Get HTML code of input Url.
-            </summary>
-            <param name="url">Website Url.</param>
-            <returns>HTML code as <see cref="T:System.String"/>.</returns>
-            <exception cref="T:System.Net.WebException">If response status code is not 200.</exception>
-        </member>
-        <member name="M:NParser.HtmlLoading.Abstract.HtmlLoader.GetResponseAsync(System.String)">
-            <summary>
-            Get response from Url.
-            </summary>
-            <param name="url">Website Url.</param>
-            <returns>Response from Url.</returns>
-        </member>
-        <member name="M:NParser.HtmlLoading.Abstract.HtmlLoader.ChangeProxy(System.Net.IWebProxy)">
-            <summary>
-            Change proxy for next requests.
-            </summary>
-            <param name="proxy">Prepared proxy.</param>
-        </member>
-        <member name="T:NParser.HtmlLoading.DocumentLoader">
-            <summary>
-            Class for loading <see cref="T:AngleSharp.Dom.IDocument"/> of any Url.
-            </summary>
-        </member>
-        <member name="F:NParser.HtmlLoading.DocumentLoader._loader">
-            <summary>
-            Object for loading HTML of any Url.
-            </summary>
-        </member>
-        <member name="M:NParser.HtmlLoading.DocumentLoader.#ctor">
-            <summary>
-            Create an instance of <see cref="T:NParser.HtmlLoading.DocumentLoader"/> with default settings.
-            </summary>
-        </member>
-        <member name="M:NParser.HtmlLoading.DocumentLoader.#ctor(NParser.HtmlLoading.Abstract.HtmlLoader)">
-            <summary>
-            Create an instance of <see cref="T:NParser.HtmlLoading.DocumentLoader"/> with prepared <see cref="T:NParser.HtmlLoading.Abstract.HtmlLoader"/>.
-            </summary>
-            <param name="loader">Object for loading HTML of any Url.</param>
-        </member>
-        <member name="M:NParser.HtmlLoading.DocumentLoader.GetDocumentAsync(System.String)">
-            <summary>
-            Get <see cref="T:AngleSharp.Dom.IDocument"/> of input Url.
-            </summary>
-            <param name="url">Webpage Url.</param>
-            <returns>Loaded <see cref="T:AngleSharp.Dom.IDocument"/> of input Url.</returns>
-            <exception cref="T:System.InvalidOperationException">If <see cref="T:NParser.HtmlLoading.Abstract.HtmlLoader"/> was null.</exception>
-        </member>
-        <member name="T:NParser.HtmlLoading.HttpClientLoader">
-            <summary>
-            Class for loading HTML of any Url using <see cref="T:System.Net.Http.HttpClient"/>.
-            </summary>
-        </member>
-        <member name="F:NParser.HtmlLoading.HttpClientLoader._client">
-            <summary>
-            Object for working with Url.
-            </summary>
-        </member>
-        <member name="F:NParser.HtmlLoading.HttpClientLoader._cachedFactory">
-            <summary>
-            Object for creating <see cref="T:System.Net.Http.HttpClient"/> with caching.
-            </summary>
-        </member>
-        <member name="M:NParser.HtmlLoading.HttpClientLoader.#ctor">
-            <summary>
-            Create an instance of <see cref="T:NParser.HtmlLoading.HttpClientLoader"/> with default settings.
-            </summary>
-        </member>
-        <member name="M:NParser.HtmlLoading.HttpClientLoader.#ctor(System.Net.Http.HttpClient)">
-            <summary>
-            Create an instance of <see cref="T:NParser.HtmlLoading.HttpClientLoader"/> with prepared <see cref="T:System.Net.Http.HttpClient"/>.     
-            </summary>
-            <param name="client">Prepared instance of <see cref="T:System.Net.Http.HttpClient"/>.</param>
-        </member>
-        <member name="M:NParser.HtmlLoading.HttpClientLoader.#ctor(NParser.Factory.CachedHttpClientFactory)">
-            <summary>
-            Create an instance of <see cref="T:NParser.HtmlLoading.HttpClientLoader"/> with prepared <see cref="T:NParser.Factory.CachedHttpClientFactory"/>.
-            </summary>
-            <param name="factory">Prepared instance of <see cref="T:NParser.Factory.CachedHttpClientFactory"/>.</param>
-        </member>
-        <member name="M:NParser.HtmlLoading.HttpClientLoader.#ctor(NParser.Factory.CachedHttpClientFactory,System.Net.Http.HttpClient)">
-            <summary>
-            Create an instance of <see cref="T:NParser.HtmlLoading.HttpClientLoader"/>.
-            </summary>
-            <param name="factory">Object for creating <see cref="T:System.Net.Http.HttpClient"/> with caching.</param>
-            <param name="client">Initial instance of <see cref="T:System.Net.Http.HttpClient"/>.</param>
-        </member>
-        <member name="T:NParser.HtmlLoading.Models.Response">
-            <summary>
-            Response from any Url.
-            </summary>
-        </member>
-        <member name="M:NParser.HtmlLoading.Models.Response.#ctor(System.String,System.Net.HttpStatusCode)">
-            <summary>
-            Create an instance of <see cref="T:NParser.HtmlLoading.Models.Response"/>.
-            </summary>
-            <param name="html">The HTML code of webpage.</param>
-            <param name="statusCode">The status code of response.</param>
-        </member>
-        <member name="M:NParser.HtmlLoading.Models.Response.#ctor(System.Net.HttpStatusCode)">
-            <summary>
-            Create an instance of <see cref="T:NParser.HtmlLoading.Models.Response"/> with empty HTML code.
-            </summary>
-            <param name="statusCode">The status code of response.</param>
-        </member>
-        <member name="M:NParser.HtmlLoading.Models.Response.#ctor(System.String)">
-            <summary>
-            Create an instance of <see cref="T:NParser.HtmlLoading.Models.Response"/> with 200 status code.
-            </summary>
-            <param name="html">The HTML code of webpage.</param>
-        </member>
-        <member name="P:NParser.HtmlLoading.Models.Response.Html">
-            <summary>
-            HTML code of webpage.
-            </summary>
-        </member>
-        <member name="P:NParser.HtmlLoading.Models.Response.StatusCode">
-            <summary>
-            Status code of response.
-            </summary>
-        </member>
-        <member name="T:NParser.HtmlLoading.WebRequestLoader">
-            <summary>
-            Class for loading HTML of any Url using <see cref="T:System.Net.HttpWebRequest"/>.
-            </summary>
-        </member>
-        <member name="F:NParser.HtmlLoading.WebRequestLoader._request">
-            <summary>
-            Object for working with Url.
-            </summary>
-        </member>
-        <member name="F:NParser.HtmlLoading.WebRequestLoader._configureRequest">
-            <summary>
-            <see cref="T:System.Action"/> for set settings of <see cref="T:System.Net.HttpWebRequest"/>.
-            </summary>
-        </member>
-        <member name="F:NParser.HtmlLoading.WebRequestLoader._changeProxy">
-            <summary>
-            <see cref="T:System.Action"/> for set new proxy for next requests.
-            </summary>
-        </member>
-        <member name="M:NParser.HtmlLoading.WebRequestLoader.#ctor(System.Action{System.Net.HttpWebRequest})">
-            <summary>
-            Create an instance of <see cref="T:NParser.HtmlLoading.WebRequestLoader"/> with prepared properties of <see cref="T:System.Net.HttpWebRequest"/>. 
-            </summary>
-            <param name="configureRequest"><see cref="T:System.Action"/> for set settings of <see cref="T:System.Net.HttpWebRequest"/>.</param>
-        </member>
-        <member name="M:NParser.HtmlLoading.WebRequestLoader.GetResponseAsync(System.String)">
-            <summary>
-            <inheritdoc/>
-            </summary>
-            <param name="url"><inheritdoc/></param>
-            <returns><inheritdoc/></returns>
-            <exception cref="T:System.InvalidOperationException">If <see cref="T:System.Net.HttpWebRequest"/> was null.</exception>
         </member>
     </members>
 </doc>

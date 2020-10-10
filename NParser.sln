@@ -5,7 +5,13 @@ VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NParser", "NParser\NParser.csproj", "{C8382AA3-CA88-4CE4-93B2-069DDC39EF99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NParser.UnitTests", "NParser.UnitTests\NParser.UnitTests.csproj", "{60CAD9E3-9DFA-405B-81C4-5EFF0B9C5487}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NParser.UnitTests", "NParser.UnitTests\NParser.UnitTests.csproj", "{60CAD9E3-9DFA-405B-81C4-5EFF0B9C5487}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NParser.Proxy", "NParser.Proxy\NParser.Proxy.csproj", "{0B60403B-18F5-4F29-81F5-EA2FC4BAFE74}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HtmlLoading", "HtmlLoading\HtmlLoading.csproj", "{EE7381D0-5B75-4346-8143-E6FE4F131CEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProxyChanging", "ProxyChanging\ProxyChanging.csproj", "{75E7D911-7831-46AC-98AC-7D63A035FDC1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{60CAD9E3-9DFA-405B-81C4-5EFF0B9C5487}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60CAD9E3-9DFA-405B-81C4-5EFF0B9C5487}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60CAD9E3-9DFA-405B-81C4-5EFF0B9C5487}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B60403B-18F5-4F29-81F5-EA2FC4BAFE74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B60403B-18F5-4F29-81F5-EA2FC4BAFE74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B60403B-18F5-4F29-81F5-EA2FC4BAFE74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B60403B-18F5-4F29-81F5-EA2FC4BAFE74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE7381D0-5B75-4346-8143-E6FE4F131CEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE7381D0-5B75-4346-8143-E6FE4F131CEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE7381D0-5B75-4346-8143-E6FE4F131CEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE7381D0-5B75-4346-8143-E6FE4F131CEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75E7D911-7831-46AC-98AC-7D63A035FDC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75E7D911-7831-46AC-98AC-7D63A035FDC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75E7D911-7831-46AC-98AC-7D63A035FDC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75E7D911-7831-46AC-98AC-7D63A035FDC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
