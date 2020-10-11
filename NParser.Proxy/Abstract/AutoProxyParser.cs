@@ -1,6 +1,5 @@
 ﻿using NParser.Abstract;
 using NParser.Proxy.Events;
-using NParser.Proxy.Loader.Abstractions;
 using ProxyChanging.Changer;
 using ProxyChanging.Provider;
 using System;

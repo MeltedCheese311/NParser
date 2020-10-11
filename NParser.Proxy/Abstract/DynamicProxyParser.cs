@@ -1,8 +1,7 @@
 ﻿using AngleSharp.Dom;
 using HtmlLoading.Factory;
-using HtmlLoading.Loaders.Abstract;
-using NParser.Proxy.Loader;
-using NParser.Proxy.Loader.Abstractions;
+using HtmlLoading.Proxy.Loaders;
+using HtmlLoading.Proxy.Loaders.Abstractions;
 using ProxyChanging.Changer;
 using System;
 using System.Net;

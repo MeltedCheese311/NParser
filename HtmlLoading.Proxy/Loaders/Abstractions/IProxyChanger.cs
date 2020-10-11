@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
-using System.Threading;
 
-namespace NParser.Proxy.Loader.Abstractions
+namespace HtmlLoading.Proxy.Loaders.Abstractions
 {
 	/// <summary>
 	/// Interface for changing current proxy.

@@ -5,7 +5,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>D:\Projects\NuGet\NParser\ProxyChanging\ProxyChanging.xml</DocumentationFile>
+    <DocumentationFile>D:\Projects\NuGet\NParser\HtmlLoading.Proxy\HtmlLoading.Proxy.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HtmlLoading\HtmlLoading.csproj" />
+  </ItemGroup>
 
 </Project>

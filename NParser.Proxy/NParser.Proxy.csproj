@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HtmlLoading.Proxy\HtmlLoading.Proxy.csproj" />
     <ProjectReference Include="..\NParser\NParser.csproj" />
     <ProjectReference Include="..\ProxyChanging\ProxyChanging.csproj" />
   </ItemGroup>

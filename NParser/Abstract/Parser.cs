@@ -1,6 +1,6 @@
 ﻿using AngleSharp.Dom;
 using HtmlLoading.Loaders;
-using HtmlLoading.Loaders.Abstract;
+using HtmlLoading.Loaders.Abstractions;
 using NParser.Abstract;
 using System;
 using System.Net;
