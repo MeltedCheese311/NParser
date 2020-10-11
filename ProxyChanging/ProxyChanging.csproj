@@ -4,8 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Gleb Skobelkin</Authors>
     <Product>ProxyChanging</Product>
-    <Description>Package for changing proxy.
-Description: https://github.com/MeltedCheese311/NParser/tree/master/ProxyChanging</Description>
+    <Description>Package for changing proxy.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/MeltedCheese311/NParser/tree/master/ProxyChanging</RepositoryUrl>
     <PackageTags>ProxyChanging, ProxyChange, Proxy</PackageTags>

@@ -4,8 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Gleb Skobelkin</Authors>
     <Product>HtmlLoading</Product>
-    <Description>Package for loading HTML content of web pages with dynamically changing proxy.
-Description: https://github.com/MeltedCheese311/NParser/tree/master/HtmlLoading</Description>
+    <Description>Package for loading HTML content of web pages with dynamically changing proxy.</Description>
     <PackageLicenseFile></PackageLicenseFile>
     <PackageTags>NParser, HTML, HtmlLoad, HtmlLoader, HtmlLoading, Proxy, DynamicProxy, HtmlLoading.Proxy</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
