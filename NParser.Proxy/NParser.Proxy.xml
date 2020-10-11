@@ -104,18 +104,18 @@
         </member>
         <member name="M:NParser.Proxy.Loader.DynamicHttpClientLoader.#ctor">
             <summary>
-            Create an instance of <see cref="T:HtmlLoading.Loaders.HttpClientLoader"/> with default settings.
+            Create an instance of <see cref="T:NParser.Proxy.Loader.DynamicHttpClientLoader"/> with default settings.
             </summary>
         </member>
         <member name="M:NParser.Proxy.Loader.DynamicHttpClientLoader.#ctor(System.Net.Http.HttpClient)">
             <summary>
-            Create an instance of <see cref="T:HtmlLoading.Loaders.HttpClientLoader"/> with prepared <see cref="T:System.Net.Http.HttpClient"/>.     
+            Create an instance of <see cref="T:NParser.Proxy.Loader.DynamicHttpClientLoader"/> with prepared <see cref="T:System.Net.Http.HttpClient"/>.     
             </summary>
             <param name="client">Prepared instance of <see cref="T:System.Net.Http.HttpClient"/>.</param>
         </member>
         <member name="M:NParser.Proxy.Loader.DynamicHttpClientLoader.#ctor(HtmlLoading.Factory.CachedHttpClientFactory)">
             <summary>
-            Create an instance of <see cref="T:HtmlLoading.Loaders.HttpClientLoader"/> with prepared <see cref="T:HtmlLoading.Factory.CachedHttpClientFactory"/>.
+            Create an instance of <see cref="T:NParser.Proxy.Loader.DynamicHttpClientLoader"/> with prepared <see cref="T:HtmlLoading.Factory.CachedHttpClientFactory"/>.
             </summary>
             <param name="factory">Prepared instance of <see cref="T:HtmlLoading.Factory.CachedHttpClientFactory"/>.</param>
         </member>
@@ -126,7 +126,7 @@
         </member>
         <member name="M:NParser.Proxy.Loader.DynamicWebRequestLoader.#ctor(System.Action{System.Net.HttpWebRequest})">
             <summary>
-            Create an instance of <see cref="T:HtmlLoading.Loaders.WebRequestLoader"/> with prepared properties of <see cref="T:System.Net.HttpWebRequest"/>. 
+            Create an instance of <see cref="T:NParser.Proxy.Loader.DynamicWebRequestLoader"/> with prepared properties of <see cref="T:System.Net.HttpWebRequest"/>. 
             </summary>
             <param name="configureRequest"><see cref="T:System.Action"/> for set settings of <see cref="T:System.Net.HttpWebRequest"/>.</param>
         </member>
