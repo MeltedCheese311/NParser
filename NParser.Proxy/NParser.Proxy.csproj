@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Gleb Skobelkin</Authors>
+    <Product>NParser</Product>
+    <Description>Package for parsing web pages using CSS selectors (AngleSharp).
+Description: https://github.com/MeltedCheese311/NParser</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/MeltedCheese311/NParser</RepositoryUrl>
+    <PackageTags>Parsing, Parser, Parse, NParser, AngleSharp, CSS, selectors, Proxy, NParser.Proxy</PackageTags>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

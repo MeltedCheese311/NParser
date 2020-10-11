@@ -9,7 +9,7 @@ Description: https://github.com/MeltedCheese311/NParser</Description>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Company />
     <Authors>Gleb Skobelkin</Authors>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
