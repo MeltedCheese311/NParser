@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ProxyChanging</name>
+    </assembly>
+    <members>
+        <member name="T:ProxyChanging.Changer.IProxyGetter">
+            <summary>
+            Interface for getting a new proxy.
+            </summary>
+        </member>
+        <member name="M:ProxyChanging.Changer.IProxyGetter.GetNewProxy">
+            <summary>
+            Get new proxy.
+            </summary>
+            <returns>New proxy.</returns>
+        </member>
+        <member name="T:ProxyChanging.Changer.ProxyGetter">
+            <summary>
+            Class for getting a new proxy from list of proxies.
+            </summary>
+        </member>
+        <member name="F:ProxyChanging.Changer.ProxyGetter._proxies">
+            <summary>
+            Array of proxies.
+            </summary>
+        </member>
+        <member name="F:ProxyChanging.Changer.ProxyGetter._currentIndex">
+            <summary>
+            Index of current proxy in <see cref="F:ProxyChanging.Changer.ProxyGetter._proxies"/>.
+            </summary>
+        </member>
+        <member name="M:ProxyChanging.Changer.ProxyGetter.#ctor(ProxyChanging.Provider.IProxyProvider)">
+            <summary>
+            Create an instance of <see cref="T:ProxyChanging.Changer.ProxyGetter"/>.
+            </summary>
+            <param name="provider">Object for getting a list of proxies.</param>
+        </member>
+        <member name="T:ProxyChanging.Provider.IProxyProvider">
+            <summary>
+            Interface for getting a list of proxies.
+            </summary>
+        </member>
+        <member name="P:ProxyChanging.Provider.IProxyProvider.Proxies">
+            <summary>
+            List of proxies.
+            </summary>
+        </member>
+    </members>
+</doc>

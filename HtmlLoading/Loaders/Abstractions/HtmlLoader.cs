@@ -3,7 +3,7 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace HtmlLoading.Loaders.Abstract
+namespace HtmlLoading.Loaders.Abstractions
 {
 	/// <summary>
 	/// Class for loading HTML of any Url.

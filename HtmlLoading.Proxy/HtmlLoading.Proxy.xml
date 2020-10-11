@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HtmlLoading.Proxy</name>
+    </assembly>
+    <members>
+        <member name="T:HtmlLoading.Proxy.Loaders.Abstractions.IProxyChanger">
+            <summary>
+            Interface for changing current proxy.
+            </summary>
+        </member>
+        <member name="M:HtmlLoading.Proxy.Loaders.Abstractions.IProxyChanger.ChangeProxy(System.Net.IWebProxy)">
+            <summary>
+            Change current proxy.
+            </summary>
+            <param name="proxy">New proxy.</param>
+        </member>
+        <member name="T:HtmlLoading.Proxy.Loaders.DynamicHttpClientLoader">
+            <summary>
+            <inheritdoc/> It is possible to change the proxy.
+            </summary>
+        </member>
+        <member name="M:HtmlLoading.Proxy.Loaders.DynamicHttpClientLoader.#ctor">
+            <summary>
+            Create an instance of <see cref="T:HtmlLoading.Proxy.Loaders.DynamicHttpClientLoader"/> with default settings.
+            </summary>
+        </member>
+        <member name="M:HtmlLoading.Proxy.Loaders.DynamicHttpClientLoader.#ctor(System.Net.Http.HttpClient)">
+            <summary>
+            Create an instance of <see cref="T:HtmlLoading.Proxy.Loaders.DynamicHttpClientLoader"/> with prepared <see cref="T:System.Net.Http.HttpClient"/>.     
+            </summary>
+            <param name="client">Prepared instance of <see cref="T:System.Net.Http.HttpClient"/>.</param>
+        </member>
+        <member name="M:HtmlLoading.Proxy.Loaders.DynamicHttpClientLoader.#ctor(HtmlLoading.Factory.CachedHttpClientFactory)">
+            <summary>
+            Create an instance of <see cref="T:HtmlLoading.Proxy.Loaders.DynamicHttpClientLoader"/> with prepared <see cref="T:HtmlLoading.Factory.CachedHttpClientFactory"/>.
+            </summary>
+            <param name="factory">Prepared instance of <see cref="T:HtmlLoading.Factory.CachedHttpClientFactory"/>.</param>
+        </member>
+        <member name="T:HtmlLoading.Proxy.Loaders.DynamicWebRequestLoader">
+            <summary>
+            <inheritdoc/> It is possible to change the proxy.
+            </summary>
+        </member>
+        <member name="M:HtmlLoading.Proxy.Loaders.DynamicWebRequestLoader.#ctor(System.Action{System.Net.HttpWebRequest})">
+            <summary>
+            Create an instance of <see cref="T:HtmlLoading.Proxy.Loaders.DynamicWebRequestLoader"/> with prepared properties of <see cref="T:System.Net.HttpWebRequest"/>. 
+            </summary>
+            <param name="configureRequest"><see cref="T:System.Action"/> for set settings of <see cref="T:System.Net.HttpWebRequest"/>.</param>
+        </member>
+    </members>
+</doc>

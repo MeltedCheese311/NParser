@@ -1,4 +1,5 @@
 ﻿using AngleSharp.Dom;
+using NParser.Proxy;
 using System;
 using System.Collections.Generic;
 using System.Linq;

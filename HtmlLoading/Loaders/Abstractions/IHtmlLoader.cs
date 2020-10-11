@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HtmlLoading.Loaders.Abstract
+namespace HtmlLoading.Loaders.Abstractions
 {
 	/// <summary>
 	/// Interface for loading HTML of any Url.

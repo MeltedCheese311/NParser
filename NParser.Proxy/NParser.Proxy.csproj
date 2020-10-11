@@ -4,11 +4,13 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Gleb Skobelkin</Authors>
     <Product>NParser</Product>
-    <Description>Package for parsing web pages using CSS selectors (AngleSharp).
-Description: https://github.com/MeltedCheese311/NParser</Description>
+    <Description>
+      Package for parsing web pages using CSS selectors (AngleSharp) with dynamically changing proxy.
+      Description: https://github.com/MeltedCheese311/NParser</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/MeltedCheese311/NParser</RepositoryUrl>
-    <PackageTags>Parsing, Parser, Parse, NParser, AngleSharp, CSS, selectors</PackageTags>
+    <PackageTags>Parsing, Parser, Parse, NParser, AngleSharp, CSS, selectors, Proxy, NParser.Proxy</PackageTags>
+    <Version>1.0.3</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -16,6 +18,7 @@ Description: https://github.com/MeltedCheese311/NParser</Description>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HtmlLoading.Proxy\HtmlLoading.Proxy.csproj" />
     <ProjectReference Include="..\NParser\NParser.csproj" />
     <ProjectReference Include="..\ProxyChanging\ProxyChanging.csproj" />
   </ItemGroup>

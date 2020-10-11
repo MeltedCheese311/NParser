@@ -2,6 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Gleb Skobelkin</Authors>
+    <Product>HtmlLoading</Product>
+    <Description>Package for loading HTML content of web pages.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/MeltedCheese311/NParser/tree/master/HtmlLoading</RepositoryUrl>
+    <PackageTags>HTML, HtmlLoad, HtmlLoader, HtmlLoading</PackageTags>
+    <Version>1.0.2</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\Projects\NuGet\NParser\HtmlLoading\HtmlLoading.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

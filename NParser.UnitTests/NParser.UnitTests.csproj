@@ -13,8 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HtmlLoading.Proxy\HtmlLoading.Proxy.csproj" />
+    <ProjectReference Include="..\HtmlLoading\HtmlLoading.csproj" />
     <ProjectReference Include="..\NParser.Proxy\NParser.Proxy.csproj" />
     <ProjectReference Include="..\NParser\NParser.csproj" />
+    <ProjectReference Include="..\ProxyChanging\ProxyChanging.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿using HtmlLoading.Loaders.Abstract;
+﻿using HtmlLoading.Loaders.Abstractions;
 using HtmlLoading.Models;
 using System;
 using System.IO;

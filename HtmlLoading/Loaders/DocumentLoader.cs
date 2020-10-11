@@ -1,7 +1,7 @@
 ﻿using AngleSharp;
 using AngleSharp.Dom;
 using AngleSharp.Io;
-using HtmlLoading.Loaders.Abstract;
+using HtmlLoading.Loaders.Abstractions;
 using System;
 using System.Net;
 using System.Threading.Tasks;

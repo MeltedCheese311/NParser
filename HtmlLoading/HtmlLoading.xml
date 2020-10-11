@@ -1,0 +1,271 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HtmlLoading</name>
+    </assembly>
+    <members>
+        <member name="T:HtmlLoading.Factory.CachedHttpClientFactory">
+            <summary>
+            Factory for creating <see cref="T:System.Net.Http.HttpClient"/> with caching.
+            </summary>
+        </member>
+        <member name="F:HtmlLoading.Factory.CachedHttpClientFactory._httpClientFactory">
+            <summary>
+            Factory for creating <see cref="T:System.Net.Http.HttpClient"/>.
+            </summary>
+        </member>
+        <member name="F:HtmlLoading.Factory.CachedHttpClientFactory._cache">
+            <summary>
+            Cached instances of <see cref="T:System.Net.Http.HttpClient"/> by <see cref="P:System.Net.Http.HttpClientHandler.Proxy"/>.
+            </summary>
+        </member>
+        <member name="M:HtmlLoading.Factory.CachedHttpClientFactory.#ctor(HtmlLoading.Factory.IHttpClientFactory)">
+            <summary>
+            Create an instance of <see cref="T:HtmlLoading.Factory.CachedHttpClientFactory"/>.
+            </summary>
+            <param name="httpClientFactory">Factory for creating <see cref="T:System.Net.Http.HttpClient"/>.</param>
+        </member>
+        <member name="M:HtmlLoading.Factory.CachedHttpClientFactory.CreateClient">
+            <summary>
+            Create instance of <see cref="T:System.Net.Http.HttpClient"/>.
+            <para>If the same instance was created earlier, it will be taken from the cache.</para>
+            </summary>
+            <returns>Instance of <see cref="T:System.Net.Http.HttpClient"/>.</returns>
+        </member>
+        <member name="M:HtmlLoading.Factory.CachedHttpClientFactory.CreateClientWithProxy(System.Net.IWebProxy)">
+            <summary>
+            Create instance of <see cref="T:System.Net.Http.HttpClient"/>.
+            <para>If the same instance was created earlier, it will be taken from the cache.</para>
+            </summary>
+            <param name="webProxy">Proxy.</param>
+            <returns>Instance of <see cref="T:System.Net.Http.HttpClient"/>.</returns>
+        </member>
+        <member name="T:HtmlLoading.Factory.HttpClientFactory">
+            <summary>
+            Factory for creating <see cref="T:System.Net.Http.HttpClient"/>.
+            </summary>
+        </member>
+        <member name="F:HtmlLoading.Factory.HttpClientFactory._makeHandler">
+            <summary>
+            Func for creating instance of <see cref="T:System.Net.Http.HttpClientHandler"/>.
+            </summary>
+        </member>
+        <member name="F:HtmlLoading.Factory.HttpClientFactory._configureClient">
+            <summary>
+            Func for creating instance of <see cref="T:System.Net.Http.HttpClient"/>.
+            </summary>
+        </member>
+        <member name="M:HtmlLoading.Factory.HttpClientFactory.#ctor(System.Func{System.Net.Http.HttpClientHandler},System.Action{System.Net.Http.HttpClient})">
+            <summary>
+            Create an instance of <see cref="T:HtmlLoading.Factory.HttpClientFactory"/>.
+            </summary>
+            <param name="makeHandler">Func for creating instance of <see cref="T:System.Net.Http.HttpClientHandler"/>.</param>
+            <param name="configureClient">Action for configuring <see cref="T:System.Net.Http.HttpClient"/>.</param>
+        </member>
+        <member name="M:HtmlLoading.Factory.HttpClientFactory.#ctor(System.Func{System.Net.Http.HttpClientHandler})">
+            <summary>
+            Create an instance of <see cref="T:HtmlLoading.Factory.HttpClientFactory"/>.
+            </summary>
+            <param name="makeHandler">Func for creating instance of <see cref="T:System.Net.Http.HttpClientHandler"/>.</param>
+        </member>
+        <member name="M:HtmlLoading.Factory.HttpClientFactory.#ctor">
+            <summary>
+            Create an instance of <see cref="T:HtmlLoading.Factory.HttpClientFactory"/> with default settings.
+            </summary>
+        </member>
+        <member name="M:HtmlLoading.Factory.HttpClientFactory.CreateClientWithProxy(System.Net.IWebProxy)">
+            <summary>
+            <inheritdoc/>
+            </summary>
+            <param name="webProxy"><inheritdoc/></param>
+            <returns><inheritdoc/></returns>
+            <exception cref="T:System.InvalidOperationException">If Func makeHandler returns null.</exception>
+        </member>
+        <member name="T:HtmlLoading.Factory.IHttpClientFactory">
+            <summary>
+            Factory for creating <see cref="T:System.Net.Http.HttpClient"/>.
+            </summary>
+        </member>
+        <member name="M:HtmlLoading.Factory.IHttpClientFactory.CreateClient">
+            <summary>
+            Create an instance of <see cref="T:System.Net.Http.HttpClient"/>.
+            </summary>
+            <returns>Instance of <see cref="T:System.Net.Http.HttpClient"/>.</returns>
+        </member>
+        <member name="M:HtmlLoading.Factory.IHttpClientFactory.CreateClientWithProxy(System.Net.IWebProxy)">
+            <summary>
+            Create an instance of <see cref="T:System.Net.Http.HttpClient"/>.
+            </summary>
+            <param name="webProxy">Proxy.</param>
+            <returns>Instance of <see cref="T:System.Net.Http.HttpClient"/>.</returns>
+        </member>
+        <member name="T:HtmlLoading.Loaders.Abstractions.HtmlLoader">
+            <summary>
+            Class for loading HTML of any Url.
+            </summary>
+        </member>
+        <member name="M:HtmlLoading.Loaders.Abstractions.HtmlLoader.GetHtmlStringAsync(System.String)">
+            <summary>
+            <inheritdoc/>
+            </summary>
+            <param name="url"><inheritdoc/></param>
+            <returns><inheritdoc/></returns>
+            <exception cref="T:System.Net.WebException">If response status code is not 200.</exception>
+        </member>
+        <member name="M:HtmlLoading.Loaders.Abstractions.HtmlLoader.GetResponseAsync(System.String)">
+            <summary>
+            Get response from Url.
+            </summary>
+            <param name="url">Website Url.</param>
+            <returns>Response from Url.</returns>
+        </member>
+        <member name="T:HtmlLoading.Loaders.Abstractions.IHtmlLoader">
+            <summary>
+            Interface for loading HTML of any Url.
+            </summary>
+        </member>
+        <member name="M:HtmlLoading.Loaders.Abstractions.IHtmlLoader.GetHtmlStringAsync(System.String)">
+            <summary>
+            Get HTML code of input Url.
+            </summary>
+            <param name="url">Website Url.</param>
+            <returns>HTML code as <see cref="T:System.String"/>.</returns>
+        </member>
+        <member name="T:HtmlLoading.Loaders.DocumentLoader">
+            <summary>
+            Class for loading <see cref="T:AngleSharp.Dom.IDocument"/> of any Url.
+            </summary>
+        </member>
+        <member name="F:HtmlLoading.Loaders.DocumentLoader._loader">
+            <summary>
+            Object for loading HTML of any Url.
+            </summary>
+        </member>
+        <member name="M:HtmlLoading.Loaders.DocumentLoader.#ctor">
+            <summary>
+            Create an instance of <see cref="T:HtmlLoading.Loaders.DocumentLoader"/> with default settings.
+            </summary>
+        </member>
+        <member name="M:HtmlLoading.Loaders.DocumentLoader.#ctor(HtmlLoading.Loaders.Abstractions.HtmlLoader)">
+            <summary>
+            Create an instance of <see cref="T:HtmlLoading.Loaders.DocumentLoader"/> with prepared <see cref="T:HtmlLoading.Loaders.Abstractions.HtmlLoader"/>.
+            </summary>
+            <param name="loader">Object for loading HTML of any Url.</param>
+        </member>
+        <member name="M:HtmlLoading.Loaders.DocumentLoader.GetDocumentAsync(System.String)">
+            <summary>
+            Get <see cref="T:AngleSharp.Dom.IDocument"/> of input Url.
+            </summary>
+            <param name="url">Webpage Url.</param>
+            <returns>Loaded <see cref="T:AngleSharp.Dom.IDocument"/> of input Url.</returns>
+            <exception cref="T:System.ArgumentNullException">If an instance of <see cref="T:HtmlLoading.Loaders.Abstractions.HtmlLoader"/> was null.</exception>
+        </member>
+        <member name="T:HtmlLoading.Loaders.HttpClientLoader">
+            <summary>
+            Class for loading HTML of any Url using <see cref="T:System.Net.Http.HttpClient"/>.
+            </summary>
+        </member>
+        <member name="F:HtmlLoading.Loaders.HttpClientLoader._client">
+            <summary>
+            Object for working with Url.
+            </summary>
+        </member>
+        <member name="F:HtmlLoading.Loaders.HttpClientLoader._cachedFactory">
+            <summary>
+            Object for creating <see cref="T:System.Net.Http.HttpClient"/> with caching.
+            </summary>
+        </member>
+        <member name="M:HtmlLoading.Loaders.HttpClientLoader.#ctor">
+            <summary>
+            Create an instance of <see cref="T:HtmlLoading.Loaders.HttpClientLoader"/> with default settings.
+            </summary>
+        </member>
+        <member name="M:HtmlLoading.Loaders.HttpClientLoader.#ctor(System.Net.Http.HttpClient)">
+            <summary>
+            Create an instance of <see cref="T:HtmlLoading.Loaders.HttpClientLoader"/> with prepared <see cref="T:System.Net.Http.HttpClient"/>.     
+            </summary>
+            <param name="client">Prepared instance of <see cref="T:System.Net.Http.HttpClient"/>.</param>
+        </member>
+        <member name="M:HtmlLoading.Loaders.HttpClientLoader.#ctor(HtmlLoading.Factory.CachedHttpClientFactory)">
+            <summary>
+            Create an instance of <see cref="T:HtmlLoading.Loaders.HttpClientLoader"/> with prepared <see cref="T:HtmlLoading.Factory.CachedHttpClientFactory"/>.
+            </summary>
+            <param name="factory">Prepared instance of <see cref="T:HtmlLoading.Factory.CachedHttpClientFactory"/>.</param>
+        </member>
+        <member name="M:HtmlLoading.Loaders.HttpClientLoader.#ctor(HtmlLoading.Factory.CachedHttpClientFactory,System.Net.Http.HttpClient)">
+            <summary>
+            Create an instance of <see cref="T:HtmlLoading.Loaders.HttpClientLoader"/>.
+            </summary>
+            <param name="factory">Object for creating <see cref="T:System.Net.Http.HttpClient"/> with caching.</param>
+            <param name="client">Initial instance of <see cref="T:System.Net.Http.HttpClient"/>.</param>
+        </member>
+        <member name="T:HtmlLoading.Loaders.WebRequestLoader">
+            <summary>
+            Class for loading HTML of any Url using <see cref="T:System.Net.HttpWebRequest"/>.
+            </summary>
+        </member>
+        <member name="F:HtmlLoading.Loaders.WebRequestLoader._configureRequest">
+            <summary>
+            <see cref="T:System.Action"/> for set settings of <see cref="T:System.Net.HttpWebRequest"/>.
+            </summary>
+        </member>
+        <member name="F:HtmlLoading.Loaders.WebRequestLoader._request">
+            <summary>
+            Object for working with Url.
+            </summary>
+        </member>
+        <member name="F:HtmlLoading.Loaders.WebRequestLoader._changeProxy">
+            <summary>
+            <see cref="T:System.Action"/> for set new proxy for next requests.
+            </summary>
+        </member>
+        <member name="M:HtmlLoading.Loaders.WebRequestLoader.#ctor(System.Action{System.Net.HttpWebRequest})">
+            <summary>
+            Create an instance of <see cref="T:HtmlLoading.Loaders.WebRequestLoader"/> with prepared properties of <see cref="T:System.Net.HttpWebRequest"/>. 
+            </summary>
+            <param name="configureRequest"><see cref="T:System.Action"/> for set settings of <see cref="T:System.Net.HttpWebRequest"/>.</param>
+        </member>
+        <member name="M:HtmlLoading.Loaders.WebRequestLoader.GetResponseAsync(System.String)">
+            <summary>
+            <inheritdoc/>
+            </summary>
+            <param name="url"><inheritdoc/></param>
+            <returns><inheritdoc/></returns>
+            <exception cref="T:System.InvalidOperationException">If an instance of <see cref="T:System.Net.HttpWebRequest"/> was null.</exception>
+        </member>
+        <member name="T:HtmlLoading.Models.Response">
+            <summary>
+            Response from any Url.
+            </summary>
+        </member>
+        <member name="M:HtmlLoading.Models.Response.#ctor(System.String,System.Net.HttpStatusCode)">
+            <summary>
+            Create an instance of <see cref="T:HtmlLoading.Models.Response"/>.
+            </summary>
+            <param name="html">The HTML code of webpage.</param>
+            <param name="statusCode">The status code of response.</param>
+        </member>
+        <member name="M:HtmlLoading.Models.Response.#ctor(System.Net.HttpStatusCode)">
+            <summary>
+            Create an instance of <see cref="T:HtmlLoading.Models.Response"/> with empty HTML code.
+            </summary>
+            <param name="statusCode">The status code of response.</param>
+        </member>
+        <member name="M:HtmlLoading.Models.Response.#ctor(System.String)">
+            <summary>
+            Create an instance of <see cref="T:HtmlLoading.Models.Response"/> with 200 status code.
+            </summary>
+            <param name="html">The HTML code of webpage.</param>
+        </member>
+        <member name="P:HtmlLoading.Models.Response.Html">
+            <summary>
+            HTML code of webpage.
+            </summary>
+        </member>
+        <member name="P:HtmlLoading.Models.Response.StatusCode">
+            <summary>
+            Status code of response.
+            </summary>
+        </member>
+    </members>
+</doc>

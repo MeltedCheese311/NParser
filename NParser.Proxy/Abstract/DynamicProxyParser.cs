@@ -1,8 +1,7 @@
 ﻿using AngleSharp.Dom;
 using HtmlLoading.Factory;
-using HtmlLoading.Loaders.Abstract;
-using NParser.Proxy.Loader;
-using NParser.Proxy.Loader.Abstractions;
+using HtmlLoading.Proxy.Loaders;
+using HtmlLoading.Proxy.Loaders.Abstractions;
 using ProxyChanging.Changer;
 using System;
 using System.Net;
@@ -10,7 +9,7 @@ using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
-namespace NParser
+namespace NParser.Proxy
 {
 	/// <summary>
 	/// <para>Abstract class with basic logic for parsing with dynamically changing proxy.</para>

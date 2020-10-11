@@ -51,7 +51,7 @@
             </summary>
             <param name="configureRequest"><see cref="T:System.Action"/> for setting properties of <see cref="T:System.Net.HttpWebRequest"/>.</param>
         </member>
-        <member name="M:NParser.Parser`1.#ctor(HtmlLoading.Loaders.Abstract.HtmlLoader)">
+        <member name="M:NParser.Parser`1.#ctor(HtmlLoading.Loaders.Abstractions.HtmlLoader)">
             <summary>
             Create an instance of <see cref="T:NParser.Parser`1"/>.
             </summary>

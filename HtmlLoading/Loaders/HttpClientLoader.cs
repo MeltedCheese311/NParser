@@ -1,5 +1,5 @@
 ﻿using HtmlLoading.Factory;
-using HtmlLoading.Loaders.Abstract;
+using HtmlLoading.Loaders.Abstractions;
 using HtmlLoading.Models;
 using System.Net;
 using System.Net.Http;

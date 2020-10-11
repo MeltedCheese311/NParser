@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Gleb Skobelkin</Authors>
+    <Product>HtmlLoading</Product>
+    <Description>Package for loading HTML content of web pages with dynamically changing proxy.</Description>
+    <PackageLicenseFile></PackageLicenseFile>
+    <PackageTags>HTML, HtmlLoad, HtmlLoader, HtmlLoading, Proxy, DynamicProxy, HtmlLoading.Proxy</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Version>1.0.2</Version>
+    <RepositoryUrl>https://github.com/MeltedCheese311/NParser/tree/master/HtmlLoading</RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\Projects\NuGet\NParser\HtmlLoading.Proxy\HtmlLoading.Proxy.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HtmlLoading\HtmlLoading.csproj" />
+  </ItemGroup>
+
+</Project>

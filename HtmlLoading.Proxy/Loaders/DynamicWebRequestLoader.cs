@@ -1,12 +1,11 @@
 ﻿using HtmlLoading.Loaders;
-using HtmlLoading.Loaders.Abstract;
-using NParser.Proxy.Loader.Abstractions;
+using HtmlLoading.Proxy.Loaders.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
 
-namespace NParser.Proxy.Loader
+namespace HtmlLoading.Proxy.Loaders
 {
 	/// <summary>
 	/// <inheritdoc/> It is possible to change the proxy.
