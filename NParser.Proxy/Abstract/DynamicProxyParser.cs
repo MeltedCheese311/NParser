@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
-namespace NParser
+namespace NParser.Proxy
 {
 	/// <summary>
 	/// <para>Abstract class with basic logic for parsing with dynamically changing proxy.</para>

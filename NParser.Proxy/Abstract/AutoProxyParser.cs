@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace NParser.Proxy.Abstract
+namespace NParser.Proxy
 {
 	/// <summary>
 	/// Decorator of <see cref="DynamicProxyParser{T}"/> for automatically changing proxy when an incorrect request is made.
