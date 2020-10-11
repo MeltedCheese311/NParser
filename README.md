@@ -1,5 +1,7 @@
 ## Description
-**NParser** is a NuGet package for parsing web pages using CSS selectors (AngleSharp).
+There are several NuGet packages for parsing web pages using CSS selectors (AngleSharp):
+**NParser** is a package for simple parsing.
+**NParser.Proxy** is an improved NParser package with the ability to change proxies.
 
 ## Table of contents
 1. [How to use this package](#package_using)
@@ -8,8 +10,15 @@
 
 <a name=package_using></a>
 ## How to use this package
-You need to inherit `Parser<T>` or `DynamicProxyParser<T>` class and override `ParseHtmlAsync` method.  
-In this method you need to find the necessary nodes in HTML document using AngleSharp with CSS selectors and convert result to the data type you need.
+You need to inherit `Parser<T>`, `DynamicProxyParser<T>` or `AutoProxyParser<T>` class and override `ParseHtmlAsync` method.  
+In this method you need to find the necessary nodes in HTML document using AngleSharp with CSS selectors and convert result to the data type you need.  
+Also you can use `NParser.DefaultParser` class.  
+
+**Class description**:
+* `NParser.Parser<T>` is an abstract class for parsing web pages using AngleSharp.  
+* `NParser.DefaultParser` is a simple concrete class for parsing using CSS-selectors.  
+* `NParser.Proxy.DynamicProxyParser<T>` is an abstract class for parsing web pages using AngleSharp with dinamically changing proxy.  
+* `NParser.Proxy.AutoProxyParser<T>` is an abstract class for parsing web pages using AngleSharp with automatically changing proxy when an incorrect request is made.  
 
 <a name=selectors_description></a>
 ## How to use CSS selectors
@@ -50,6 +59,15 @@ There are four kinds of relationships between elements in CSS3.
 
 <a name=examples></a>
 ## Examples
+An example of using simple parser class `DefaultParser`:
+```c#
+// create an instance of parser.
+using var parser = new DefaultParser();
+// parse webpage.
+var result = await parser.ParseAsync("https://genius.com/Last-dinosaurs-apollo-lyrics", "div.lyrics");
+```
+
+Also you can create your own parsers using abstract class `Parser<T>`.  
 An example of creating a parser:
 ```c#
 public class ExampleParser : Parser<string>
@@ -128,14 +146,31 @@ parser.ChangeProxy("167.172.247.130", 8080);
 var result2 = await parser.ParseAsync(url);
 ```
 
+There is also a `AutoProxyParser<T>` class with the ability to automatically change proxies when an incorrect request is made.
+To create an instance of this class you need create instance of your own `DynamicProxyParser<T>` and instance of `IProxyGetter`/`IProxyProvider`.
+Event `AutoProxyChanged` triggered when the proxy changes automatically. To stop changing proxies, call `StopChangingProxy` method:
+```c#
+// AutoProxyExampleParser - your inheritor of AutoProxyParser class.
+// dynamicProxyExampleParser - your inheritor of DynamicProxyParser class.
+// proxyProvider - your inheritor of IProxyProvider interface for getting list of proxies.
+using var parser = new AutoProxyExampleParser(dynamicProxyExampleParser, proxyProvider);
+
+parser.AutoProxyChanged += (sender, args)
+{
+	// your event handling logic.
+}
+
+var result = await parser.ParseAsync(url);
+```
+
 A real example when you need to use other parsers inside the parser:
 ```c#
-public class TobaccoParser : Parser<IEnumerable<Store>>
+public class StoresParser : Parser<IEnumerable<Store>>
 {
 	// nested parser
-	private readonly Parser<string> _emailParser;
+	private readonly Parser<string> _itemParser;
 
-	public TobaccoParser() => _emailParser = new EmailParser();
+	public StoresParser() => _itemParser = new ItemParser();
 
 	protected override async Task<IEnumerable<Store>> ParseHtmlAsync(IDocument html)
 	{
@@ -145,24 +180,24 @@ public class TobaccoParser : Parser<IEnumerable<Store>>
 			.Select(async x =>
 			{
 				var name = x?.TextContent ?? "";
-				var link = $"https://www.moscowmap.ru{x.GetAttribute("href")}";
-				var email = await _emailParser.ParseAsync(link);
+				var link = $"https://www.qwerty.com{x.GetAttribute("href")}";
+				var email = await _itemParser.ParseAsync(link);
 				return new Store(name, email);
 			})))
-			.Where(x => !string.IsNullOrWhiteSpace(x.Name) && !string.IsNullOrWhiteSpace(x.Email))
+			.Where(x => !string.IsNullOrWhiteSpace(x.Name) && !string.IsNullOrWhiteSpace(x.Content))
 			.ToArray();
 
 		return result;
 	}
 }
 
-public class EmailParser : Parser<string>
+public class ItemParser : Parser<string>
 {
 	protected override Task<string> ParseHtmlAsync(IDocument html)
 	{
 		var result = html
 			.QuerySelectorAll("a")
-			.FirstOrDefault(x => x.GetAttribute("href")?.Contains("mailto:") == true)
+			.FirstOrDefault(x => x.GetAttribute("href")?.Contains("item:") == true)
 			?.TextContent ?? "";
 		return Task.FromResult(result);
 	}
