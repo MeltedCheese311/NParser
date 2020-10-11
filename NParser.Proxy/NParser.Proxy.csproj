@@ -9,7 +9,7 @@ Description: https://github.com/MeltedCheese311/NParser</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/MeltedCheese311/NParser</RepositoryUrl>
     <PackageTags>Parsing, Parser, Parse, NParser, AngleSharp, CSS, selectors, Proxy, NParser.Proxy</PackageTags>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
