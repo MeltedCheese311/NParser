@@ -6,9 +6,9 @@
     <Product>HtmlLoading</Product>
     <Description>Package for loading HTML content of web pages with dynamically changing proxy.</Description>
     <PackageLicenseFile></PackageLicenseFile>
-    <PackageTags>NParser, HTML, HtmlLoad, HtmlLoader, HtmlLoading, Proxy, DynamicProxy, HtmlLoading.Proxy</PackageTags>
+    <PackageTags>HTML, HtmlLoad, HtmlLoader, HtmlLoading, Proxy, DynamicProxy, HtmlLoading.Proxy</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <RepositoryUrl>https://github.com/MeltedCheese311/NParser/tree/master/HtmlLoading</RepositoryUrl>
   </PropertyGroup>
 
