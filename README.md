@@ -1,7 +1,7 @@
 ## Description
-There are several NuGet packages for parsing web pages using CSS selectors (AngleSharp):
-**NParser** is a package for simple parsing.
-**NParser.Proxy** is an improved NParser package with the ability to change proxies.
+There are several NuGet packages for parsing web pages using CSS selectors (AngleSharp):  
+* **NParser** is a package for simple parsing.  
+* **NParser.Proxy** is an improved NParser package with the ability to change proxies.
 
 ## Table of contents
 1. [How to use this package](#package_using)
