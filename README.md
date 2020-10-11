@@ -146,8 +146,8 @@ parser.ChangeProxy("167.172.247.130", 8080);
 var result2 = await parser.ParseAsync(url);
 ```
 
-There is also a `AutoProxyParser<T>` class with the ability to automatically change proxies when an incorrect request is made.
-To create an instance of this class you need create instance of your own `DynamicProxyParser<T>` and instance of `IProxyGetter`/`IProxyProvider`.
+There is also a `AutoProxyParser<T>` class with the ability to automatically change proxies when an incorrect request is made.  
+To create an instance of this class you need create instance of your own `DynamicProxyParser<T>` and instance of `IProxyGetter`/`IProxyProvider`.  
 Event `AutoProxyChanged` triggered when the proxy changes automatically. To stop changing proxies, call `StopChangingProxy` method:
 ```c#
 // AutoProxyExampleParser - your inheritor of AutoProxyParser class.
